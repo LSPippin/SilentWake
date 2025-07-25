@@ -1,6 +1,7 @@
 # SilentWake
 A citizen science mobile/web app to report and track maritime incidents.
 
+
 ## Features
 - Splash Screen
 - Welcome Screen
@@ -44,3 +45,4 @@ src/
 Clone the repository:
    git clone https://github.com/YOUR_USERNAME/SilentWake.git
    cd SilentWake
+
