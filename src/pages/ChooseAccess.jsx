@@ -2,17 +2,17 @@ import { useNavigate } from 'react-router-dom';
 import { useEffect } from 'react';
 
 export default function ChooseAccess() {
-  const router = useRouter();
+  const navigate = useNavigate();
 
   const handleSelect = (mode) => {
     localStorage.setItem('userMode', mode);
 
     if (mode === 'guest') {
-      router.push('/onboarding');
+      navigate('/onboarding');
     } else if (mode === 'user') {
-      router.push('/login');
+      navigate('/login');
     } else if (mode === 'new') {
-      router.push('/signup');
+      navigate('/signup');
     }
   };
 
