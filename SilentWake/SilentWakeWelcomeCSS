@@ -1,0 +1,24 @@
+body {
+           background: linear-gradient(#020C24);
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+   
+        .btn-primary {
+            background: linear-gradient(to right ,#f1f1f2);
+            //transition: all 0.3s ease;
+        }
+        
+     
+        .btn-secondary {
+            transition: all 0.3s ease;
+        }
+    
+        .input-field:focus {
+            border-color: #8E54E9;
+            box-shadow: 0 0 0 3px rgba(142, 84, 233, 0.2);
+        }

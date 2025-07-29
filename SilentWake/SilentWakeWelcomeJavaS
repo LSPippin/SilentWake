@@ -1,0 +1,19 @@
+tailwind.config = {
+
+}
+document.addEventListener('DOMContentLoaded', function() {
+            const loginForm = document.getElementById('login-form');
+            const successMessage = document.getElementById('success-message');
+            const loginBtn = document.getElementById('login-btn');
+            const guestBtn = document.getElementById('guest-btn');
+            
+
+            // Guest login
+            guestBtn.addEventListener('click', function() {
+                loginForm.classList.add('hidden');
+                successMessage.classList.remove('hidden');
+                welcomeText.textContent = "Welcome, Guest!";
+                loginTypeText.textContent = "You've logged in as a guest user.";
+            });
+          
+        });
