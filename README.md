@@ -29,8 +29,8 @@ src/
 ├── components/       // Shared UI elements (buttons, nav, etc.)
 ├── pages/            // Full screens/views (Splash, Map, etc.)
 ├── assets/           // Logos, icons
-├── App.js            // Main layout and routing
-└── index.js          // Entry point
+├── App.jsx           // Main layout and routing
+└── index.jsx         // Entry point
 ```
 
 
