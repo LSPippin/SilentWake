@@ -128,3 +128,9 @@ h2 {
 .splash-subtitle {
   font-size: 1.2rem;
 }
+
+.splash-logo {
+  width: 250px;
+  height: auto;
+  margin-bottom: 1.5rem;
+}
