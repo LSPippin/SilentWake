@@ -34,6 +34,21 @@ button {
   transition: background-color 0.2s ease, transform 0.1s ease;
 }
 
+.button-row {
+  margin-top: 2rem;
+  display: flex;
+  justify-content: center;
+  gap: 1rem;
+}
+
+.button-group {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  align-items: center;
+  margin-top: 2rem;
+}
+
 button:hover {
   transform: scale(1.02);
 }
@@ -133,4 +148,35 @@ h2 {
   width: 250px;
   height: auto;
   margin-bottom: 1.5rem;
+}
+
+
+/* ===== Onboarding Page Styles ===== */
+.onboarding-screen {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;   /* ✅ Keep overall content centered horizontally */
+  height: 100vh;
+  padding: 2rem;
+}
+
+/* Center the title */
+.onboarding-screen h1 {
+  text-align: center;
+  margin-bottom: 1rem;
+  width: 100%;
+}
+
+/* Left-align only the paragraphs */
+.onboarding-screen p {
+  text-align: left;
+  margin-bottom: 1rem;
+  width: 100%;
+  max-width: 700px; /* optional for better readability */
+}
+
+/* Keep buttons centered */
+.onboarding-screen .button-row {
+  justify-content: center;
 }

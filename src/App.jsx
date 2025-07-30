@@ -11,6 +11,8 @@ function App() {
       <Routes>
         <Route path="/" element={<SplashScreen />} />
         <Route path="/welcome" element={<div>Welcome page coming soon!</div>} />
+        <Route path="/onboarding" element={<Onboarding />} />
+        <Route path="/choose-access" element={<ChooseAccess />} />
       </Routes>
     </Router>
   );
