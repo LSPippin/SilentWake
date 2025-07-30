@@ -106,3 +106,25 @@ h2 {
   from { opacity: 0; }
   to { opacity: 1; }
 }
+
+
+/* ===== Splash Screen Styles ===== */
+.splash-screen {
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  background-color: #001f3f;
+  color: white;
+}
+
+.splash-title {
+  font-size: 3rem;
+  font-weight: bold;
+  margin-bottom: 1rem;
+}
+
+.splash-subtitle {
+  font-size: 1.2rem;
+}

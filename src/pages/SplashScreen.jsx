@@ -10,33 +10,13 @@ export default function SplashScreen() {
       navigate("/welcome");
     }, 3000);
 
-    return () => clearTimeout(timer); // cleanup
+    return () => clearTimeout(timer);
   }, [navigate]);
 
   return (
-    <div style={styles.container}>
-      <h1 style={styles.title}>Silent Wake</h1>
-      <p style={styles.subtitle}>Tracking the silence. Empowering awareness.</p>
+    <div className="splash-screen">
+      <h1 className="splash-title">Silent Wake</h1>
+      <p className="splash-subtitle">Tracking the silence. Empowering awareness.</p>
     </div>
   );
 }
-
-const styles = {
-  container: {
-    height: "100vh",
-    display: "flex",
-    flexDirection: "column",
-    justifyContent: "center",
-    alignItems: "center",
-    backgroundColor: "#001f3f",
-    color: "white",
-  },
-  title: {
-    fontSize: "3rem",
-    fontWeight: "bold",
-    marginBottom: "1rem",
-  },
-  subtitle: {
-    fontSize: "1.2rem",
-  },
-};
