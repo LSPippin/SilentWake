@@ -1,0 +1,108 @@
+/* Reset browser defaults */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+/* Set a global font and background */
+html, body {
+  height: 100%;
+  font-family: 'Roboto', 'Inter', sans-serif;
+  background-color: #001f3f; /* deep maritime blue */
+  color: #f8f9fa; /* light text */
+  line-height: 1.6;
+}
+
+/* Links */
+a {
+  color: #4db8ff;
+  text-decoration: none;
+}
+
+a:hover {
+  text-decoration: underline;
+}
+
+/* Buttons */
+button {
+  cursor: pointer;
+  border: none;
+  border-radius: 8px;
+  padding: 0.8rem 1.6rem;
+  font-size: 1rem;
+  transition: background-color 0.2s ease, transform 0.1s ease;
+}
+
+button:hover {
+  transform: scale(1.02);
+}
+
+/* Primary button */
+.btn-primary {
+  background-color: #4db8ff;
+  color: #001f3f;
+}
+
+/* Secondary button */
+.btn-secondary {
+  background-color: #f8f9fa;
+  color: #001f3f;
+}
+
+/* Inputs */
+input, textarea {
+  border: 1px solid #ccc;
+  border-radius: 6px;
+  padding: 0.6rem;
+  font-size: 1rem;
+  width: 100%;
+}
+
+/* Containers */
+.container {
+  max-width: 900px;
+  margin: auto;
+  padding: 1.5rem;
+}
+
+/* Centered screen layout */
+.full-screen-center {
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+/* Card style */
+.card {
+  background: #0a2540;
+  padding: 2rem;
+  border-radius: 12px;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.3);
+}
+
+/* Headings */
+h1, h2, h3, h4 {
+  font-weight: 600;
+  margin-bottom: 0.5rem;
+}
+
+h1 {
+  font-size: 2.4rem;
+}
+
+h2 {
+  font-size: 2rem;
+}
+
+/* Transitions for page elements */
+.fade-in {
+  animation: fadeIn 0.4s ease-in;
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
