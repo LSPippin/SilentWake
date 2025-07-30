@@ -1,3 +1,4 @@
+import { ReactComponent as LogoImage } from './components/LogoImage.svg';
 import { useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 
@@ -15,6 +16,7 @@ export default function SplashScreen() {
 
   return (
     <div className="splash-screen">
+      <LogoImage className="splash-logo" />
       <h1 className="splash-title">Silent Wake</h1>
       <p className="splash-subtitle">Tracking the silence. Empowering awareness.</p>
     </div>
