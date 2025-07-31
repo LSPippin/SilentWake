@@ -1,5 +1,6 @@
 import { useState } from 'react';
-import { useNavigate } from 'react-router-dom'; // ✅ for redirection
+import { useNavigate } from 'react-router-dom';
+import SuccessOverlay from './SuccessOverlay';
 
 export default function ReportForm() {
   const navigate = useNavigate();
@@ -14,13 +15,14 @@ export default function ReportForm() {
   });
 
   const [errors, setErrors] = useState({});
+  const [showOverlay, setShowOverlay] = useState(false);
 
   const handleChange = (e) => {
     const { name, value, files } = e.target;
-    setFormData((prev) => ({
-      ...prev,
+    setFormData({
+      ...formData,
       [name]: files ? files[0] : value,
-    }));
+    });
   };
 
   const validate = () => {
@@ -40,92 +42,68 @@ export default function ReportForm() {
       return;
     }
 
-    console.log('Form Submitted:', formData); // ✅ simulate post
-
-    // Reset
-    setFormData({
-      incidentType: '',
-      shipName: '',
-      location: '',
-      date: '',
-      notes: '',
-      file: null,
-    });
+    console.log('Submitted:', formData);
     setErrors({});
+    setShowOverlay(true); // Show confirmation overlay
 
-    // Redirect to confirmation or dashboard
-    navigate('/welcome'); // or wherever you want
+    setTimeout(() => {
+      setShowOverlay(false);
+      navigate('/welcome'); // ✅ React Router navigation
+    }, 4000);
   };
 
   return (
-    <form onSubmit={handleSubmit} style={styles.form}>
-      <h2>Submit an Incident Report</h2>
+    <>
+      <form onSubmit={handleSubmit} style={styles.form}>
+        <h2>Submit Incident Report</h2>
 
-      <label>
-        Type of Incident *
-        <input
-          type="text"
-          name="incidentType"
-          value={formData.incidentType}
-          onChange={handleChange}
+        <label>
+          Type of Incident *
+          <input type="text" name="incidentType" value={formData.incidentType} onChange={handleChange} />
+          {errors.incidentType && <p style={styles.error}>{errors.incidentType}</p>}
+        </label>
+
+        <label>
+          Ship Name *
+          <input type="text" name="shipName" value={formData.shipName} onChange={handleChange} />
+          {errors.shipName && <p style={styles.error}>{errors.shipName}</p>}
+        </label>
+
+        <label>
+          Location *
+          <input type="text" name="location" value={formData.location} onChange={handleChange} />
+          {errors.location && <p style={styles.error}>{errors.location}</p>}
+        </label>
+
+        <label>
+          Date of Incident *
+          <input type="date" name="date" value={formData.date} onChange={handleChange} />
+          {errors.date && <p style={styles.error}>{errors.date}</p>}
+        </label>
+
+        <label>
+          Additional Notes
+          <textarea name="notes" value={formData.notes} onChange={handleChange} />
+        </label>
+
+        <label>
+          File Upload
+          <input type="file" name="file" accept=".pdf,.jpg,.png" onChange={handleChange} />
+        </label>
+
+        <button type="submit" style={styles.button}>Submit Report</button>
+      </form>
+
+      {showOverlay && (
+        <SuccessOverlay
+          badgeText="🛟 Maritime Reporter Badge Earned"
+          onClose={() => {
+            setShowOverlay(false);
+            navigate('/welcome');
+          }}
         />
-        {errors.incidentType && <p style={styles.error}>{errors.incidentType}</p>}
-      </label>
-
-      <label>
-        Ship Name *
-        <input
-          type="text"
-          name="shipName"
-          value={formData.shipName}
-          onChange={handleChange}
-        />
-        {errors.shipName && <p style={styles.error}>{errors.shipName}</p>}
-      </label>
-
-      <label>
-        Location *
-        <input
-          type="text"
-          name="location"
-          value={formData.location}
-          onChange={handleChange}
-        />
-        {errors.location && <p style={styles.error}>{errors.location}</p>}
-      </label>
-
-      <label>
-        Date of Incident *
-        <input
-          type="date"
-          name="date"
-          value={formData.date}
-          onChange={handleChange}
-        />
-        {errors.date && <p style={styles.error}>{errors.date}</p>}
-      </label>
-
-      <label>
-        Additional Notes
-        <textarea
-          name="notes"
-          value={formData.notes}
-          onChange={handleChange}
-        />
-      </label>
-
-      <label>
-        File Upload
-        <input
-          type="file"
-          name="file"
-          accept=".pdf,.jpg,.png"
-          onChange={handleChange}
-        />
-      </label>
-
-      <button type="submit" style={styles.button}>Submit Report</button>
-    </form>
+      )}
+    </>
   );
 }
 
