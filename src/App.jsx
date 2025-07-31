@@ -3,6 +3,7 @@ import SplashScreen from './pages/SplashScreen';
 import ChooseAccess from './pages/ChooseAccess';
 import Onboarding from './pages/Onboarding';
 import ReportForm from './components/ReportForm';
+import Dashboard from './pages/Dashboard';
 
 // import other pages as needed
 
