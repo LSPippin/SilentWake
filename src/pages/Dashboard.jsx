@@ -8,11 +8,18 @@ export default function Dashboard() {
     setReports(stored);
   }, []);
 
+  const handleDelete = (id) => {
+    const updatedReports = reports.filter((r) => r.id !== id);
+    setReports(updatedReports);
+    localStorage.setItem('reports', JSON.stringify(updatedReports));
+  };
+
   const userMode = localStorage.getItem('userMode');
 
   return (
     <div style={styles.container}>
-      <h2>📊 Submitted Reports</h2>
+      <h2 style={{ fontSize: '1.8rem', color: '#003366' }}>📊 Submitted Reports</h2>
+
       {userMode === 'guest' && (
         <p style={styles.guest}>Guest mode: reports are stored only in this browser.</p>
       )}
@@ -22,11 +29,14 @@ export default function Dashboard() {
       ) : (
         reports.map((report) => (
           <div key={report.id} style={styles.card}>
-            <strong>{report.incidentType}</strong>
+            <strong style={{ fontSize: '1.2rem' }}>{report.incidentType}</strong>
             <p><b>Ship:</b> {report.shipName}</p>
             <p><b>Location:</b> {report.location}</p>
             <p><b>Date:</b> {report.date}</p>
             <p><b>Submitted:</b> {new Date(report.submittedAt).toLocaleString()}</p>
+            <button style={styles.deleteBtn} onClick={() => handleDelete(report.id)}>
+              🗑 Delete
+            </button>
           </div>
         ))
       )}
@@ -55,5 +65,16 @@ const styles = {
     boxShadow: '0 4px 10px rgba(0, 0, 0, 0.08)',
     color: '#222',
     borderLeft: '6px solid #007bff',
+  },
+  deleteBtn: {
+    marginTop: '0.8rem',
+    backgroundColor: '#cc0000',
+    color: '#fff',
+    border: 'none',
+    padding: '0.5rem 1rem',
+    borderRadius: '6px',
+    cursor: 'pointer',
+    fontSize: '0.9rem',
+    transition: 'background 0.3s ease',
   },
 };
