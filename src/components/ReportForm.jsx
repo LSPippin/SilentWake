@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import SuccessOverlay from './SuccessOverlay'; // Make sure this exists
+import SuccessOverlay from './SuccessOverlay'; // Make sure you have this
 
 export default function ReportForm() {
   const navigate = useNavigate();
@@ -24,7 +24,6 @@ export default function ReportForm() {
 
     setFormData((prev) => ({ ...prev, [name]: newValue }));
 
-    // Re-validate on every change
     const updatedErrors = validate({ ...formData, [name]: newValue });
     setErrors(updatedErrors);
   };
@@ -45,7 +44,6 @@ export default function ReportForm() {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-
     const validationErrors = validate();
     if (Object.keys(validationErrors).length > 0) {
       setErrors(validationErrors);
@@ -58,13 +56,21 @@ export default function ReportForm() {
       return;
     }
 
-    console.log('Submitted:', formData);
+    const existingData = JSON.parse(localStorage.getItem('reports')) || [];
+    const newSubmission = {
+      ...formData,
+      id: Date.now(),
+      submittedAt: new Date().toISOString(),
+    };
+
+    localStorage.setItem('reports', JSON.stringify([...existingData, newSubmission]));
+
     setErrors({});
     setShowOverlay(true);
 
     setTimeout(() => {
       setShowOverlay(false);
-      navigate('/welcome');
+      navigate('/dashboard');
     }, 4000);
   };
 
@@ -73,65 +79,22 @@ export default function ReportForm() {
       <form onSubmit={handleSubmit} style={styles.form}>
         <h2>Submit Incident Report</h2>
 
-        <label>
-          Type of Incident *
-          <input
-            type="text"
-            name="incidentType"
-            value={formData.incidentType}
-            onChange={handleChange}
-            onBlur={handleBlur}
-            style={touched.incidentType && errors.incidentType ? styles.inputError : {}}
-          />
-          {touched.incidentType && errors.incidentType && (
-            <p style={styles.error}>{errors.incidentType}</p>
-          )}
-        </label>
-
-        <label>
-          Ship Name *
-          <input
-            type="text"
-            name="shipName"
-            value={formData.shipName}
-            onChange={handleChange}
-            onBlur={handleBlur}
-            style={touched.shipName && errors.shipName ? styles.inputError : {}}
-          />
-          {touched.shipName && errors.shipName && (
-            <p style={styles.error}>{errors.shipName}</p>
-          )}
-        </label>
-
-        <label>
-          Location *
-          <input
-            type="text"
-            name="location"
-            value={formData.location}
-            onChange={handleChange}
-            onBlur={handleBlur}
-            style={touched.location && errors.location ? styles.inputError : {}}
-          />
-          {touched.location && errors.location && (
-            <p style={styles.error}>{errors.location}</p>
-          )}
-        </label>
-
-        <label>
-          Date of Incident *
-          <input
-            type="date"
-            name="date"
-            value={formData.date}
-            onChange={handleChange}
-            onBlur={handleBlur}
-            style={touched.date && errors.date ? styles.inputError : {}}
-          />
-          {touched.date && errors.date && (
-            <p style={styles.error}>{errors.date}</p>
-          )}
-        </label>
+        {['incidentType', 'shipName', 'location', 'date'].map((field) => (
+          <label key={field}>
+            {field.replace(/([A-Z])/g, ' $1')} *
+            <input
+              type={field === 'date' ? 'date' : 'text'}
+              name={field}
+              value={formData[field]}
+              onChange={handleChange}
+              onBlur={handleBlur}
+              style={touched[field] && errors[field] ? styles.inputError : {}}
+            />
+            {touched[field] && errors[field] && (
+              <p style={styles.error}>{errors[field]}</p>
+            )}
+          </label>
+        ))}
 
         <label>
           Additional Notes
@@ -170,7 +133,7 @@ export default function ReportForm() {
           badgeText="🛟 Maritime Reporter Badge Earned"
           onClose={() => {
             setShowOverlay(false);
-            navigate('/welcome');
+            navigate('/dashboard');
           }}
         />
       )}
@@ -211,4 +174,5 @@ const styles = {
     transition: 'background 0.3s ease',
   },
 };
+
 
