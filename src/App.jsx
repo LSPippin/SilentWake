@@ -15,6 +15,7 @@ function App() {
         <Route path="/onboarding" element={<Onboarding />} />
         <Route path="/choose-access" element={<ChooseAccess />} />
         <Route path="/submit-report" element={<ReportForm />} />
+        <Route path="/dashboard" element={<Dashboard />} />
       </Routes>
     </Router>
   );
