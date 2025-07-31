@@ -38,17 +38,22 @@ const styles = {
   container: {
     padding: '2rem',
     fontFamily: 'Arial, sans-serif',
+    backgroundColor: '#f0f4f8',
+    minHeight: '100vh',
+    color: '#111',
   },
   guest: {
     fontStyle: 'italic',
-    color: '#666',
+    color: '#444',
     marginBottom: '1rem',
   },
   card: {
-    backgroundColor: '#f8f8f8',
-    borderRadius: '8px',
-    padding: '1rem',
-    marginBottom: '1rem',
-    boxShadow: '0 2px 6px rgba(0,0,0,0.1)',
+    backgroundColor: '#ffffff',
+    borderRadius: '10px',
+    padding: '1.2rem',
+    marginBottom: '1.2rem',
+    boxShadow: '0 4px 10px rgba(0, 0, 0, 0.08)',
+    color: '#222',
+    borderLeft: '6px solid #007bff',
   },
 };
