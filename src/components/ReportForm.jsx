@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import SuccessOverlay from './SuccessOverlay';
+import SuccessOverlay from './SuccessOverlay'; // Make sure this exists
 
 export default function ReportForm() {
   const navigate = useNavigate();
@@ -15,40 +15,56 @@ export default function ReportForm() {
   });
 
   const [errors, setErrors] = useState({});
+  const [touched, setTouched] = useState({});
   const [showOverlay, setShowOverlay] = useState(false);
 
   const handleChange = (e) => {
     const { name, value, files } = e.target;
-    setFormData({
-      ...formData,
-      [name]: files ? files[0] : value,
-    });
+    const newValue = files ? files[0] : value;
+
+    setFormData((prev) => ({ ...prev, [name]: newValue }));
+
+    // Re-validate on every change
+    const updatedErrors = validate({ ...formData, [name]: newValue });
+    setErrors(updatedErrors);
   };
 
-  const validate = () => {
+  const handleBlur = (e) => {
+    const { name } = e.target;
+    setTouched((prev) => ({ ...prev, [name]: true }));
+  };
+
+  const validate = (data = formData) => {
     const newErrors = {};
-    if (!formData.incidentType) newErrors.incidentType = 'Incident type is required';
-    if (!formData.shipName) newErrors.shipName = 'Ship name is required';
-    if (!formData.location) newErrors.location = 'Location is required';
-    if (!formData.date) newErrors.date = 'Date is required';
+    if (!data.incidentType.trim()) newErrors.incidentType = 'Incident type is required';
+    if (!data.shipName.trim()) newErrors.shipName = 'Ship name is required';
+    if (!data.location.trim()) newErrors.location = 'Location is required';
+    if (!data.date) newErrors.date = 'Date is required';
     return newErrors;
   };
 
   const handleSubmit = (e) => {
     e.preventDefault();
+
     const validationErrors = validate();
     if (Object.keys(validationErrors).length > 0) {
       setErrors(validationErrors);
+      setTouched({
+        incidentType: true,
+        shipName: true,
+        location: true,
+        date: true,
+      });
       return;
     }
 
     console.log('Submitted:', formData);
     setErrors({});
-    setShowOverlay(true); // Show confirmation overlay
+    setShowOverlay(true);
 
     setTimeout(() => {
       setShowOverlay(false);
-      navigate('/welcome'); // ✅ React Router navigation
+      navigate('/welcome');
     }, 4000);
   };
 
@@ -59,39 +75,94 @@ export default function ReportForm() {
 
         <label>
           Type of Incident *
-          <input type="text" name="incidentType" value={formData.incidentType} onChange={handleChange} />
-          {errors.incidentType && <p style={styles.error}>{errors.incidentType}</p>}
+          <input
+            type="text"
+            name="incidentType"
+            value={formData.incidentType}
+            onChange={handleChange}
+            onBlur={handleBlur}
+            style={touched.incidentType && errors.incidentType ? styles.inputError : {}}
+          />
+          {touched.incidentType && errors.incidentType && (
+            <p style={styles.error}>{errors.incidentType}</p>
+          )}
         </label>
 
         <label>
           Ship Name *
-          <input type="text" name="shipName" value={formData.shipName} onChange={handleChange} />
-          {errors.shipName && <p style={styles.error}>{errors.shipName}</p>}
+          <input
+            type="text"
+            name="shipName"
+            value={formData.shipName}
+            onChange={handleChange}
+            onBlur={handleBlur}
+            style={touched.shipName && errors.shipName ? styles.inputError : {}}
+          />
+          {touched.shipName && errors.shipName && (
+            <p style={styles.error}>{errors.shipName}</p>
+          )}
         </label>
 
         <label>
           Location *
-          <input type="text" name="location" value={formData.location} onChange={handleChange} />
-          {errors.location && <p style={styles.error}>{errors.location}</p>}
+          <input
+            type="text"
+            name="location"
+            value={formData.location}
+            onChange={handleChange}
+            onBlur={handleBlur}
+            style={touched.location && errors.location ? styles.inputError : {}}
+          />
+          {touched.location && errors.location && (
+            <p style={styles.error}>{errors.location}</p>
+          )}
         </label>
 
         <label>
           Date of Incident *
-          <input type="date" name="date" value={formData.date} onChange={handleChange} />
-          {errors.date && <p style={styles.error}>{errors.date}</p>}
+          <input
+            type="date"
+            name="date"
+            value={formData.date}
+            onChange={handleChange}
+            onBlur={handleBlur}
+            style={touched.date && errors.date ? styles.inputError : {}}
+          />
+          {touched.date && errors.date && (
+            <p style={styles.error}>{errors.date}</p>
+          )}
         </label>
 
         <label>
           Additional Notes
-          <textarea name="notes" value={formData.notes} onChange={handleChange} />
+          <textarea
+            name="notes"
+            value={formData.notes}
+            onChange={handleChange}
+          />
         </label>
 
         <label>
           File Upload
-          <input type="file" name="file" accept=".pdf,.jpg,.png" onChange={handleChange} />
+          <input
+            type="file"
+            name="file"
+            accept=".pdf,.jpg,.png"
+            onChange={handleChange}
+          />
         </label>
 
-        <button type="submit" style={styles.button}>Submit Report</button>
+        <button
+          type="submit"
+          disabled={Object.keys(validate()).length > 0}
+          style={{
+            ...styles.button,
+            opacity: Object.keys(validate()).length > 0 ? 0.5 : 1,
+            cursor: Object.keys(validate()).length > 0 ? 'not-allowed' : 'pointer',
+          }}
+        >
+          Submit Report
+        </button>
       </form>
 
       {showOverlay && (
@@ -118,9 +189,13 @@ const styles = {
     flexDirection: 'column',
     gap: '1rem',
   },
+  inputError: {
+    border: '1px solid red',
+  },
   error: {
     color: 'red',
     fontSize: '0.9rem',
+    marginTop: '0.25rem',
   },
   button: {
     padding: '0.8rem',
@@ -128,6 +203,5 @@ const styles = {
     borderRadius: '6px',
     border: '1px solid #333',
     backgroundColor: '#fff',
-    cursor: 'pointer',
   },
 };
