@@ -70,7 +70,7 @@ export default function ReportForm() {
 
     setTimeout(() => {
       setShowOverlay(false);
-      navigate('/dashboard');
+      navigate('/Dashboard');
     }, 4000);
   };
 
@@ -79,22 +79,29 @@ export default function ReportForm() {
       <form onSubmit={handleSubmit} className="report-form">
         <h2>Incident Report</h2>
 
+
         {['incidentType', 'shipName', 'location', 'date'].map((field) => (
-          <label key={field}>
-            {field.replace(/([A-Z])/g, ' $1')} *
-            <input
-              type={field === 'date' ? 'date' : 'text'}
-              name={field}
-              value={formData[field]}
-              onChange={handleChange}
-              onBlur={handleBlur}
-              style={touched[field] && errors[field] ? styles.inputError : {}}
-            />
-            {touched[field] && errors[field] && (
-              <p style={styles.error}>{errors[field]}</p>
-            )}
-          </label>
-        ))}
+  <label key={field}>
+    <span className="label-text">
+      {field
+        .replace(/([A-Z])/g, ' $1')
+        .replace(/^./, str => str.toUpperCase())}
+      <span className="required">*</span>
+    </span>
+    <input
+      type={field === 'date' ? 'date' : 'text'}
+      name={field}
+      value={formData[field]}
+      onChange={handleChange}
+      onBlur={handleBlur}
+      className={touched[field] && errors[field] ? 'input-error' : ''}
+    />
+    {touched[field] && errors[field] && (
+      <p className="error-text">{errors[field]}</p>
+    )}
+  </label>
+))}
+
 
         <label>
           Additional Notes

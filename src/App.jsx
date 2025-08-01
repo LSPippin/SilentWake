@@ -23,6 +23,7 @@ function App() {
         <Route path="/InfoCenter" element={<InfoCenter />} />
 
 
+
 {/* Guest and User can see Explore Cases */}
     
         <Route
@@ -35,6 +36,7 @@ function App() {
         />
 
 
+
 {/* Only logged-in users can submit reports*/}
         <Route
           path="/SubmitReport"
@@ -44,6 +46,7 @@ function App() {
             </ProtectedRoute>
          }
       />
+
 
 
 {/* Only logged-in users can access forum*/}
