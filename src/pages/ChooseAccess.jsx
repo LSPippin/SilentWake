@@ -4,15 +4,19 @@ import { useEffect } from 'react';
 export default function ChooseAccess() {
   const navigate = useNavigate();
 
+  useEffect(() => {
+    localStorage.removeItem('userMode');
+  }, []);
+
   const handleSelect = (mode) => {
     localStorage.setItem('userMode', mode);
 
     if (mode === 'guest') {
-      navigate('/onboarding');
+      navigate('/Onboarding');
     } else if (mode === 'user') {
-      navigate('/login');
+      navigate('/Login');
     } else if (mode === 'new') {
-      navigate('/signup');
+      navigate('/Signup');
     }
   };
 

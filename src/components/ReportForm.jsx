@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import SuccessOverlay from './SuccessOverlay'; // Make sure you have this
+import SuccessOverlay from './SuccessOverlay';
 
 export default function ReportForm() {
   const navigate = useNavigate();
@@ -76,8 +76,8 @@ export default function ReportForm() {
 
   return (
     <>
-      <form onSubmit={handleSubmit} style={styles.form}>
-        <h2>Submit Incident Report</h2>
+      <form onSubmit={handleSubmit} className="report-form">
+        <h2>Incident Report</h2>
 
         {['incidentType', 'shipName', 'location', 'date'].map((field) => (
           <label key={field}>
@@ -118,12 +118,8 @@ export default function ReportForm() {
         <button
           type="submit"
           disabled={Object.keys(validate()).length > 0}
-          style={{
-            ...styles.button,
-            opacity: Object.keys(validate()).length > 0 ? 0.5 : 1,
-            cursor: Object.keys(validate()).length > 0 ? 'not-allowed' : 'pointer',
-          }}
-        >
+         >
+
           Submit Report
         </button>
       </form>
@@ -140,39 +136,5 @@ export default function ReportForm() {
     </>
   );
 }
-
-const styles = {
-  form: {
-    maxWidth: '600px',
-    margin: '2rem auto',
-    padding: '2rem',
-    backgroundColor: '#ffffff',
-    borderRadius: '12px',
-    boxShadow: '0 4px 12px rgba(0, 0, 0, 0.1)',
-    display: 'flex',
-    flexDirection: 'column',
-    gap: '1.5rem',
-    fontFamily: 'Arial, sans-serif',
-    color: '#222',
-  },
-  inputError: {
-    border: '2px solid #cc0000',
-    backgroundColor: '#fff0f0',
-  },
-  error: {
-    color: '#cc0000',
-    fontSize: '0.9rem',
-    marginTop: '0.3rem',
-  },
-  button: {
-    padding: '0.9rem',
-    fontSize: '1.1rem',
-    borderRadius: '6px',
-    border: 'none',
-    backgroundColor: '#004080',
-    color: '#fff',
-    transition: 'background 0.3s ease',
-  },
-};
 
 

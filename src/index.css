@@ -1,11 +1,13 @@
-/* Reset browser defaults */
+/* ===== RESET BROWSER DEFAULTS ===== */
 * {
   margin: 0;
   padding: 0;
   box-sizing: border-box;
 }
 
-/* Set a global font and background */
+
+
+/* ===== GLOBAL FONT AND BACKGROUND ===== */
 html, body {
   height: 100%;
   font-family: 'Roboto', 'Inter', sans-serif;
@@ -14,7 +16,9 @@ html, body {
   line-height: 1.6;
 }
 
-/* Links */
+
+
+/* ===== LINKS ===== */
 a {
   color: #4db8ff;
   text-decoration: none;
@@ -24,7 +28,9 @@ a:hover {
   text-decoration: underline;
 }
 
-/* Buttons */
+
+
+/* ===== BUTTONS ===== */
 button {
   cursor: pointer;
   border: none;
@@ -65,7 +71,22 @@ button:hover {
   color: #001f3f;
 }
 
-/* Inputs */
+/* Pop Up Buttons */
+.popup-buttons {
+  display: flex;
+  justify-content: center;
+  gap: 1rem;
+  margin-top: 1.5rem;
+}
+
+.popup-buttons .btn-secondary,
+.popup-buttons .btn-primary {
+  flex: 1;
+}
+
+
+
+/* ===== INPUTS ===== */
 input, textarea {
   border: 1px solid #ccc;
   border-radius: 6px;
@@ -74,14 +95,18 @@ input, textarea {
   width: 100%;
 }
 
-/* Containers */
+
+
+/* ===== CONTAINERS ===== */
 .container {
   max-width: 900px;
   margin: auto;
   padding: 1.5rem;
 }
 
-/* Centered screen layout */
+
+
+/* ===== CENTERED SCREEN LAYOUT ===== */
 .full-screen-center {
   height: 100vh;
   display: flex;
@@ -90,7 +115,9 @@ input, textarea {
   align-items: center;
 }
 
-/* Card style */
+
+
+/* ===== CARD STYLE ===== */
 .card {
   background: #0a2540;
   padding: 2rem;
@@ -98,7 +125,9 @@ input, textarea {
   box-shadow: 0 4px 12px rgba(0,0,0,0.3);
 }
 
-/* Headings */
+
+
+/* ===== HEADINGS ===== */
 h1, h2, h3, h4 {
   font-weight: 600;
   margin-bottom: 0.5rem;
@@ -112,7 +141,9 @@ h2 {
   font-size: 2rem;
 }
 
-/* Transitions for page elements */
+
+
+/* ===== TRANSITIONS FOR PAGE ELEMENTS ===== */
 .fade-in {
   animation: fadeIn 0.4s ease-in;
 }
@@ -123,7 +154,8 @@ h2 {
 }
 
 
-/* ===== Splash Screen Styles ===== */
+
+/* ===== SPLASH SCREEN ===== */
 .splash-screen {
   height: 100vh;
   display: flex;
@@ -151,12 +183,13 @@ h2 {
 }
 
 
-/* ===== Onboarding Page Styles ===== */
+
+/* ===== ONBOARDING ===== */
 .onboarding-screen {
   display: flex;
   flex-direction: column;
   justify-content: center;
-  align-items: center;   /* ✅ Keep overall content centered horizontally */
+  align-items: center;
   height: 100vh;
   padding: 2rem;
 }
@@ -173,10 +206,143 @@ h2 {
   text-align: left;
   margin-bottom: 1rem;
   width: 100%;
-  max-width: 700px; /* optional for better readability */
+  max-width: 700px;
 }
 
 /* Keep buttons centered */
 .onboarding-screen .button-row {
   justify-content: center;
+}
+
+
+
+/* ===== SUBMIT REPORT ===== */
+.submit-report {
+  max-width: 800px;
+  margin: 0 auto;
+  padding: 2rem;
+}
+
+.submit-report h1 {
+  text-align: center;
+  margin-bottom: 1.5rem;
+}
+
+/* Form layout */
+.submit-report form {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+/* Labels and inputs */
+.submit-report label {
+  font-weight: 500;
+  margin-bottom: 0.3rem;
+}
+
+.submit-report input,
+.submit-report textarea {
+  background-color: #f8f9fa;
+  color: #001f3f;
+  padding: 0.7rem;
+  border: 1px solid #ccc;
+  border-radius: 6px;
+  font-size: 1rem;
+}
+
+/* Submit button styling */
+.submit-report button[type="submit"] {
+  margin-top: 1rem;
+  background-color: #4db8ff;
+  color: #001f3f;
+  padding: 0.8rem;
+  font-size: 1rem;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: background-color 0.2s ease;
+}
+
+.submit-report button[type="submit"]:hover {
+  background-color: #76c9ff;
+}
+
+
+
+/* ===== REPORT FORM ===== */
+.report-form {
+  background-color: #fff;
+  color: #001f3f;
+  padding: 2rem;
+  border-radius: 12px;
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.report-form label {
+  display: flex;
+  flex-direction: column;
+  font-weight: 500;
+}
+
+.report-form .input-error {
+  border: 2px solid #cc0000;
+  background-color: #fff0f0;
+}
+
+.report-form .error-text {
+  color: #cc0000;
+  font-size: 0.85rem;
+  margin-top: 0.3rem;
+}
+
+
+
+/* ===== ACCESS DENIED POP-UP ===== */
+
+/* Blur everything behind the popup */
+.blurred-background #root > *:not(.access-popup) {
+  filter: blur(6px);
+  pointer-events: none;
+  user-select: none;
+}
+
+/* Popup overlay covers the screen with a transparent backdrop */
+.access-popup {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0,0,0,0.3); /* semi-transparent overlay */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 9999;
+}
+
+/* The popup box itself */
+.popup-content {
+  background: #fff;
+  color: #001f3f;
+  padding: 2rem;
+  border-radius: 12px;
+  max-width: 400px;
+  width: 90%;
+  text-align: center;
+  box-shadow: 0 6px 20px rgba(0,0,0,0.3);
+  animation: popupFade 0.3s ease-out;
+}
+
+/* Animation for smoother entry */
+@keyframes popupFade {
+  from {
+    transform: scale(0.9);
+    opacity: 0;
+  }
+  to {
+    transform: scale(1);
+    opacity: 1;
+  }
 }

@@ -8,7 +8,7 @@ export default function SplashScreen() {
   useEffect(() => {
     // Automatically redirect after 3 seconds
     const timer = setTimeout(() => {
-      navigate("/welcome");
+      navigate("/Welcome");
     }, 3000);
 
     return () => clearTimeout(timer);
