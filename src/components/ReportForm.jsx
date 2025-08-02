@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import SuccessOverlay from './SuccessOverlay';
+import SuccessOverlay from './SuccessOverlay'; // optional if you’ve implemented it
 
 export default function ReportForm() {
   const navigate = useNavigate();
@@ -70,38 +70,91 @@ export default function ReportForm() {
 
     setTimeout(() => {
       setShowOverlay(false);
-      navigate('/Dashboard');
-    }, 4000);
+      navigate('/dashboard');
+    }, 3000);
   };
 
   return (
     <>
-      <form onSubmit={handleSubmit} className="report-form">
-        <h2>Incident Report</h2>
+      <form onSubmit={handleSubmit} style={styles.form}>
+        <h2>Submit Incident Report</h2>
 
+        <label>
+          Type of Incident *
+          <select
+            name="incidentType"
+            value={formData.incidentType}
+            onChange={handleChange}
+            onBlur={handleBlur}
+            style={{
+              ...styles.select,
+              ...(touched.incidentType && errors.incidentType ? styles.inputError : {})
+            }}
+          >
+            <option value="">Select an incident type</option>
+            <option value="Anonymous Tip or Observation">Anonymous Tip or Observation</option>
+            <option value="Assault or Harassment">Assault or Harassment</option>
+            <option value="Crew Misconduct">Crew Misconduct</option>
+            <option value="Distress Call or Signal">Distress Call or Signal</option>
+            <option value="Missing Person">Missing Person</option>
+            <option value="Overboard">Overboard</option>
+            <option value="Passenger Misconduct">Passenger Misconduct</option>
+            <option value="Security / Surveillance Concern">Security / Surveillance Concern</option>
+            <option value="Suspicious Death">Suspicious Death</option>
+            <option value="Theft or Tampering">Theft or Tampering</option>
+            <option value="Unexplained Injury or Illness">Unexplained Injury or Illness</option>
+            <option value="Unusual Behavior or Event">Unusual Behavior or Event</option>
+            <option value="Other">Other</option>
+          </select>
+          {touched.incidentType && errors.incidentType && (
+            <p style={styles.error}>{errors.incidentType}</p>
+          )}
+        </label>
 
-        {['incidentType', 'shipName', 'location', 'date'].map((field) => (
-  <label key={field}>
-    <span className="label-text">
-      {field
-        .replace(/([A-Z])/g, ' $1')
-        .replace(/^./, str => str.toUpperCase())}
-      <span className="required">*</span>
-    </span>
-    <input
-      type={field === 'date' ? 'date' : 'text'}
-      name={field}
-      value={formData[field]}
-      onChange={handleChange}
-      onBlur={handleBlur}
-      className={touched[field] && errors[field] ? 'input-error' : ''}
-    />
-    {touched[field] && errors[field] && (
-      <p className="error-text">{errors[field]}</p>
-    )}
-  </label>
-))}
+        <label>
+          Ship Name *
+          <input
+            type="text"
+            name="shipName"
+            value={formData.shipName}
+            onChange={handleChange}
+            onBlur={handleBlur}
+            style={touched.shipName && errors.shipName ? styles.inputError : {}}
+          />
+          {touched.shipName && errors.shipName && (
+            <p style={styles.error}>{errors.shipName}</p>
+          )}
+        </label>
 
+        <label>
+          Location *
+          <input
+            type="text"
+            name="location"
+            value={formData.location}
+            onChange={handleChange}
+            onBlur={handleBlur}
+            style={touched.location && errors.location ? styles.inputError : {}}
+          />
+          {touched.location && errors.location && (
+            <p style={styles.error}>{errors.location}</p>
+          )}
+        </label>
+
+        <label>
+          Date *
+          <input
+            type="date"
+            name="date"
+            value={formData.date}
+            onChange={handleChange}
+            onBlur={handleBlur}
+            style={touched.date && errors.date ? styles.inputError : {}}
+          />
+          {touched.date && errors.date && (
+            <p style={styles.error}>{errors.date}</p>
+          )}
+        </label>
 
         <label>
           Additional Notes
@@ -125,8 +178,12 @@ export default function ReportForm() {
         <button
           type="submit"
           disabled={Object.keys(validate()).length > 0}
-         >
-
+          style={{
+            ...styles.button,
+            opacity: Object.keys(validate()).length > 0 ? 0.5 : 1,
+            cursor: Object.keys(validate()).length > 0 ? 'not-allowed' : 'pointer',
+          }}
+        >
           Submit Report
         </button>
       </form>
@@ -136,7 +193,7 @@ export default function ReportForm() {
           badgeText="🛟 Maritime Reporter Badge Earned"
           onClose={() => {
             setShowOverlay(false);
-            navigate('/Dashboard');
+            navigate('/dashboard');
           }}
         />
       )}
@@ -144,4 +201,45 @@ export default function ReportForm() {
   );
 }
 
+const styles = {
+  form: {
+    maxWidth: '600px',
+    margin: '2rem auto',
+    padding: '2rem',
+    backgroundColor: '#ffffff',
+    borderRadius: '12px',
+    boxShadow: '0 4px 12px rgba(0, 0, 0, 0.1)',
+    display: 'flex',
+    flexDirection: 'column',
+    gap: '1.5rem',
+    fontFamily: 'Arial, sans-serif',
+    color: '#222',
+  },
+  select: {
+    padding: '0.6rem',
+    fontSize: '1rem',
+    borderRadius: '6px',
+    border: '1px solid #ccc',
+    backgroundColor: '#fff',
+    width: '100%',
+  },
+  inputError: {
+    border: '2px solid #cc0000',
+    backgroundColor: '#fff0f0',
+  },
+  error: {
+    color: '#cc0000',
+    fontSize: '0.9rem',
+    marginTop: '0.3rem',
+  },
+  button: {
+    padding: '0.9rem',
+    fontSize: '1.1rem',
+    borderRadius: '6px',
+    border: 'none',
+    backgroundColor: '#004080',
+    color: '#fff',
+    transition: 'background 0.3s ease',
+  },
+};
 
