@@ -11,8 +11,8 @@
 html, body {
   height: 100%;
   font-family: 'Roboto', 'Inter', sans-serif;
-  background-color: #001f3f; /* deep maritime blue */
-  color: #f8f9fa; /* light text */
+  background-color: #001f3f;
+  color: #f8f9fa;
   line-height: 1.6;
 }
 
@@ -184,6 +184,44 @@ h2 {
 
 
 
+/* ===== WELCOME SCREEN & CHOOSE ACCESS SCREEN ===== */
+.welcome-logo {
+  margin-top: 2rem;
+  width: 100px;
+  height: auto;
+  opacity: 0.9;
+}
+
+.access-btn {
+  width: 250px;
+  max-width: 80%;
+  text-align: center;
+  background-color: #fff;
+  color: #001f3f;
+  border: 2px solid #001f3f;
+  border-radius: 8px;
+  padding: 0.8rem 1.6rem;
+  font-size: 1rem;
+  transition: background-color 0.2s ease, color 0.2s ease, transform 0.1s ease;
+}
+
+/* Hover effect - turn blue */
+.access-btn:hover {
+  background-color: #4db8ff;
+  color: #fff;
+  transform: scale(1.03);
+}
+
+/* Active/Clicked effect */
+.access-btn:active {
+  background-color: #007acc;
+  color: #fff;
+  transform: scale(0.98);
+}
+
+
+
+
 /* ===== ONBOARDING ===== */
 .onboarding-screen {
   display: flex;
@@ -212,6 +250,25 @@ h2 {
 /* Keep buttons centered */
 .onboarding-screen .button-row {
   justify-content: center;
+}
+
+
+
+/* ===== DASHBOARD ===== */
+.dashboard-logout-btn {
+  margin-bottom: 1rem;
+  background-color: #444;
+  color: #fff;
+  padding: 0.5rem 1rem;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  font-size: 1rem;
+  transition: background-color 0.2s ease;
+}
+
+.dashboard-logout-btn:hover {
+  background-color: #222;
 }
 
 
@@ -300,7 +357,7 @@ h2 {
 .label-text {
   display: inline-flex;
   align-items: center;
-  gap: 0.2rem; /* slight spacing between text and * */
+  gap: 0.2rem;
 }
 
 .required {
@@ -326,7 +383,7 @@ h2 {
   left: 0;
   width: 100%;
   height: 100%;
-  background: rgba(0,0,0,0.3); /* semi-transparent overlay */
+  background: rgba(0,0,0,0.3);
   display: flex;
   justify-content: center;
   align-items: center;

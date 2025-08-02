@@ -2,6 +2,7 @@
 
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import ProtectedRoute from './components/ProtectedRoute';
+
 import SplashScreen from './pages/SplashScreen';
 import Onboarding from './pages/Onboarding';
 import ChooseAccess from './pages/ChooseAccess';
@@ -10,54 +11,27 @@ import SubmitReport from './pages/SubmitReport';
 import ExploreCases from './pages/ExploreCases';
 import InfoCenter from './pages/InfoCenter';
 import Forum from './pages/Forum';
+import Welcome from './pages/Welcome';
 
 function App() {
   return (
     <Router>
       <Routes>
-        <Route path="/SplashScreen" element={<SplashScreen />} />
-        <Route path="/Welcome" element={<div>Welcome page coming soon!</div>} />
-        <Route path="/Onboarding" element={<Onboarding />} />
-        <Route path="/ChooseAccess" element={<ChooseAccess />} />
-        <Route path="/Dashboard" element={<Dashboard />} />
-        <Route path="/InfoCenter" element={<InfoCenter />} />
+
+        {/* Guest Accessible */}
+        <Route path="/SplashScreen" element={<ProtectedRoute guestAllowed={true}><SplashScreen /></ProtectedRoute>} />
+        <Route path="/Welcome" element={<ProtectedRoute guestAllowed={true}><Welcome /></ProtectedRoute>} />
+        <Route path="/Onboarding" element={<ProtectedRoute guestAllowed={true}><Onboarding /></ProtectedRoute>} />
+        <Route path="/ChooseAccess" element={<ProtectedRoute guestAllowed={true}><ChooseAccess /></ProtectedRoute>} />
+        <Route path="/InfoCenter" element={<ProtectedRoute guestAllowed={true}><InfoCenter /></ProtectedRoute>} />
 
 
 
-{/* Guest and User can see Explore Cases */}
-    
-        <Route
-          path="/ExploreCases"
-          element={
-            <ProtectedRoute allowedModes={['user']}>
-              <ExploreCases />
-            </ProtectedRoute>
-          }
-        />
-
-
-
-{/* Only logged-in users can submit reports*/}
-        <Route
-          path="/SubmitReport"
-          element={
-            <ProtectedRoute allowedModes={['user']}>
-              <SubmitReport />
-            </ProtectedRoute>
-         }
-      />
-
-
-
-{/* Only logged-in users can access forum*/}
-        <Route
-          path="/Forum"
-          element={
-            <ProtectedRoute allowedModes={['user']}>
-              <Forum />
-            </ProtectedRoute>
-          }
-        />
+      {/* User Only Access (default) */}
+        <Route path="/Dashboard" element={<ProtectedRoute><Dashboard /></ProtectedRoute>} />
+        <Route path="/SubmitReport" element={<ProtectedRoute><SubmitReport /></ProtectedRoute>} />
+        <Route path="/ExploreCases" element={<ProtectedRoute><ExploreCases /></ProtectedRoute>} />
+        <Route path="/Forum" element={<ProtectedRoute><Forum /></ProtectedRoute>} />
       </Routes>
     </Router>
   );

@@ -1,18 +1,20 @@
 import LogoImage from "../components/LogoImage.svg";
 import { useEffect } from "react";
 import { useNavigate } from "react-router-dom";
+import useAuth from "../hooks/useAuth";
 
 export default function SplashScreen() {
   const navigate = useNavigate();
+  const { userMode } = useAuth();
 
   useEffect(() => {
-    // Automatically redirect after 3 seconds
     const timer = setTimeout(() => {
-      navigate("/Welcome");
+        if (userMode === 'user') {navigate('/Dashboard');
+     } else {navigate('/Welcome');}
     }, 3000);
 
     return () => clearTimeout(timer);
-  }, [navigate]);
+  }, [navigate, userMode]);
 
   return (
     <div className="splash-screen">

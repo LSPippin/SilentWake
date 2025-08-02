@@ -1,18 +1,23 @@
 import { useEffect } from 'react';
+import useAuth from '../hooks/useAuth';
 
-export default function ProtectedRoute({ children, allowedModes }) {
-  const userMode = localStorage.getItem('userMode') || '';
-  const accessAllowed = allowedModes.includes(userMode);
+export default function ProtectedRoute({ children, guestAllowed = false }) {
+  const { userMode } = useAuth();
+
+  const accessAllowed = guestAllowed || userMode === 'user';
+
+  console.log("ProtectedRoute check:", {
+  userMode,
+  guestAllowed,
+  accessAllowed
+});
 
   useEffect(() => {
     const root = document.getElementById('root');
-    if (!accessAllowed) {
-      document.body.classList.add('blurred-background');
-    } else {
-      document.body.classList.remove('blurred-background');
-    }
+    if (!accessAllowed) root.classList.add('blurred-background');
+    else root.classList.remove('blurred-background');
 
-    return () => document.body.classList.remove('blurred-background');
+    return () => root.classList.remove('blurred-background');
   }, [accessAllowed]);
 
   if (!accessAllowed) {

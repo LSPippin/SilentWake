@@ -1,7 +1,10 @@
 import { useEffect, useState } from 'react';
+import useAuth from '../hooks/useAuth';
 
 export default function Dashboard() {
   const [reports, setReports] = useState([]);
+  const { logout } = useAuth();
+  const userMode = localStorage.getItem('userMode');
 
   useEffect(() => {
     const stored = JSON.parse(localStorage.getItem('reports')) || [];
@@ -14,8 +17,6 @@ export default function Dashboard() {
     localStorage.setItem('reports', JSON.stringify(updatedReports));
   };
 
-  const userMode = localStorage.getItem('userMode');
-
   return (
     <div style={styles.container}>
       <h2 style={{ fontSize: '1.8rem', color: '#003366' }}>📊 Submitted Reports</h2>
@@ -23,6 +24,10 @@ export default function Dashboard() {
       {userMode === 'guest' && (
         <p style={styles.guest}>Guest mode: reports are stored only in this browser.</p>
       )}
+
+    <button className="dashboard-logout-btn" onClick={logout}>
+        Logout
+      </button>   
 
       {reports.length === 0 ? (
         <p>No reports found.</p>
@@ -43,38 +48,3 @@ export default function Dashboard() {
     </div>
   );
 }
-
-const styles = {
-  container: {
-    padding: '2rem',
-    fontFamily: 'Arial, sans-serif',
-    backgroundColor: '#f0f4f8',
-    minHeight: '100vh',
-    color: '#111',
-  },
-  guest: {
-    fontStyle: 'italic',
-    color: '#444',
-    marginBottom: '1rem',
-  },
-  card: {
-    backgroundColor: '#ffffff',
-    borderRadius: '10px',
-    padding: '1.2rem',
-    marginBottom: '1.2rem',
-    boxShadow: '0 4px 10px rgba(0, 0, 0, 0.08)',
-    color: '#222',
-    borderLeft: '6px solid #007bff',
-  },
-  deleteBtn: {
-    marginTop: '0.8rem',
-    backgroundColor: '#cc0000',
-    color: '#fff',
-    border: 'none',
-    padding: '0.5rem 1rem',
-    borderRadius: '6px',
-    cursor: 'pointer',
-    fontSize: '0.9rem',
-    transition: 'background 0.3s ease',
-  },
-};

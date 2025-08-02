@@ -1,5 +1,6 @@
 import { useNavigate } from 'react-router-dom';
 import useAuth from '../hooks/useAuth';
+import LogoImage from '../components/LogoImage.svg';
 
 export default function ChooseAccess() {
   const navigate = useNavigate();
@@ -19,8 +20,7 @@ export default function ChooseAccess() {
 
   return (
     <div className="full-screen-center container fade-in">
-      <h1>Choose Your Access</h1>
-      <p>How would you like to use Silent Wake?</p>
+      <h1>Welcome</h1>
 
 <div className="button-group">
   <button className="access-btn" onClick={() => handleSelect('guest')}>
@@ -34,6 +34,8 @@ export default function ChooseAccess() {
   </button>
 </div>
 
+
+            <img src={LogoImage} alt="Silent Wake Logo" className="welcome-logo" />
     </div>
   );
 }
