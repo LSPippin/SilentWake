@@ -12,6 +12,7 @@ import ExploreCases from './pages/ExploreCases';
 import InfoCenter from './pages/InfoCenter';
 import Forum from './pages/Forum';
 import Welcome from './pages/Welcome';
+import Home from './pages/Home';
 
 function App() {
   return (
@@ -26,8 +27,8 @@ function App() {
         <Route path="/InfoCenter" element={<ProtectedRoute guestAllowed={true}><InfoCenter /></ProtectedRoute>} />
 
 
-
       {/* User Only Access (default) */}
+        <Route path="/Home" element={<ProtectedRoute><Home /></ProtectedRoute>} />
         <Route path="/Dashboard" element={<ProtectedRoute><Dashboard /></ProtectedRoute>} />
         <Route path="/SubmitReport" element={<ProtectedRoute><SubmitReport /></ProtectedRoute>} />
         <Route path="/ExploreCases" element={<ProtectedRoute><ExploreCases /></ProtectedRoute>} />

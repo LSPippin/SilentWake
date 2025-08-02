@@ -136,7 +136,7 @@ export default function ReportForm() {
           badgeText="🛟 Maritime Reporter Badge Earned"
           onClose={() => {
             setShowOverlay(false);
-            navigate('/dashboard');
+            navigate('/Dashboard');
           }}
         />
       )}

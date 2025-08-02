@@ -221,7 +221,6 @@ h2 {
 
 
 
-
 /* ===== ONBOARDING ===== */
 .onboarding-screen {
   display: flex;
@@ -250,6 +249,59 @@ h2 {
 /* Keep buttons centered */
 .onboarding-screen .button-row {
   justify-content: center;
+}
+
+
+
+/* ===== Home Screen ===== */
+.home-screen {
+  text-align: center;
+  background-color: #001f3f;
+  color: white;
+  padding: 2rem;
+}
+
+.home-logo {
+  width: 80px;
+  height: auto;
+  margin-bottom: 0.5rem;
+}
+
+.home-title {
+  font-size: 1.8rem;
+  font-weight: bold;
+  margin-bottom: 2rem;
+}
+
+.home-nav {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  align-items: center;
+}
+
+.home-btn {
+  width: 250px;
+  background-color: #fff;
+  color: #001f3f;
+  border: 2px solid #001f3f;
+  border-radius: 8px;
+  padding: 0.8rem 1rem;
+  font-size: 1rem;
+  font-weight: 500;
+  transition: background-color 0.2s ease, transform 0.1s ease;
+}
+
+.home-btn:hover {
+  background-color: #4db8ff;
+  color: #fff;
+  transform: scale(1.03);
+}
+
+.home-btn:active {
+  background-color: #007acc;
+  color: #fff;
+  transform: scale(0.98);
 }
 
 
