@@ -44,38 +44,42 @@ export default function ReportForm() {
   };
 
   const handleSubmit = (e) => {
-    e.preventDefault();
-    setHasSubmitted(true); // 👈 flag this has been submitted
+  e.preventDefault();
 
-    const validationErrors = validate();
-    if (Object.keys(validationErrors).length > 0) {
-      setErrors(validationErrors);
-      setTouched({
-        incidentType: true,
-        shipName: true,
-        location: true,
-        date: true,
-      });
-      return;
-    }
+  const validationErrors = validate();
 
-    const existingData = JSON.parse(localStorage.getItem('reports')) || [];
-    const newSubmission = {
-      ...formData,
-      id: Date.now(),
-      submittedAt: new Date().toISOString(),
-    };
-
-    localStorage.setItem('reports', JSON.stringify([...existingData, newSubmission]));
-
-    setErrors({});
-    setShowOverlay(true);
-
-    setTimeout(() => {
-      setShowOverlay(false);
-      navigate('/dashboard');
-    }, 3000);
+  // 👇 Mark all fields as "touched" to trigger error messages
+  const allTouched = {
+    incidentType: true,
+    shipName: true,
+    location: true,
+    date: true,
   };
+  setTouched(allTouched);
+  setErrors(validationErrors);
+
+  if (Object.keys(validationErrors).length > 0) {
+    return; // Prevent form submission
+  }
+
+  // Save valid data to localStorage
+  const existingData = JSON.parse(localStorage.getItem('reports')) || [];
+  const newSubmission = {
+    ...formData,
+    id: Date.now(),
+    submittedAt: new Date().toISOString(),
+  };
+
+  localStorage.setItem('reports', JSON.stringify([...existingData, newSubmission]));
+
+  setErrors({});
+  setShowOverlay(true);
+
+  setTimeout(() => {
+    setShowOverlay(false);
+    navigate('/dashboard');
+  }, 3000);
+};
 
   return (
     <>
