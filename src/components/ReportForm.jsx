@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import SuccessOverlay from './SuccessOverlay'; // optional
+import SuccessOverlay from './SuccessOverlay'; // optional overlay
 
 export default function ReportForm() {
   const navigate = useNavigate();
@@ -17,7 +17,6 @@ export default function ReportForm() {
   const [errors, setErrors] = useState({});
   const [touched, setTouched] = useState({});
   const [showOverlay, setShowOverlay] = useState(false);
-  const [hasSubmitted, setHasSubmitted] = useState(false); // 👈 new state
 
   const handleChange = (e) => {
     const { name, value, files } = e.target;
@@ -44,48 +43,47 @@ export default function ReportForm() {
   };
 
   const handleSubmit = (e) => {
-  e.preventDefault();
+    e.preventDefault();
 
-  const validationErrors = validate();
+    const validationErrors = validate();
+    setErrors(validationErrors);
 
-  // 👇 Mark all fields as "touched" to trigger error messages
-  const allTouched = {
-    incidentType: true,
-    shipName: true,
-    location: true,
-    date: true,
+    // Mark all fields as touched so errors display
+    setTouched({
+      incidentType: true,
+      shipName: true,
+      location: true,
+      date: true,
+    });
+
+    if (Object.keys(validationErrors).length > 0) {
+      return;
+    }
+
+    // Submit the data
+    const existingData = JSON.parse(localStorage.getItem('reports')) || [];
+    const newSubmission = {
+      ...formData,
+      id: Date.now(),
+      submittedAt: new Date().toISOString(),
+    };
+
+    localStorage.setItem('reports', JSON.stringify([...existingData, newSubmission]));
+
+    setShowOverlay(true);
+
+    setTimeout(() => {
+      setShowOverlay(false);
+      navigate('/dashboard');
+    }, 3000);
   };
-  setTouched(allTouched);
-  setErrors(validationErrors);
-
-  if (Object.keys(validationErrors).length > 0) {
-    return; // Prevent form submission
-  }
-
-  // Save valid data to localStorage
-  const existingData = JSON.parse(localStorage.getItem('reports')) || [];
-  const newSubmission = {
-    ...formData,
-    id: Date.now(),
-    submittedAt: new Date().toISOString(),
-  };
-
-  localStorage.setItem('reports', JSON.stringify([...existingData, newSubmission]));
-
-  setErrors({});
-  setShowOverlay(true);
-
-  setTimeout(() => {
-    setShowOverlay(false);
-    navigate('/dashboard');
-  }, 3000);
-};
 
   return (
     <>
       <form onSubmit={handleSubmit} style={styles.form}>
         <h2>Submit Incident Report</h2>
 
+        {/* INCIDENT TYPE */}
         <label>
           Type of Incident *
           <select
@@ -95,7 +93,7 @@ export default function ReportForm() {
             onBlur={handleBlur}
             style={{
               ...styles.select,
-              ...((touched.incidentType || hasSubmitted) && errors.incidentType ? styles.inputError : {})
+              ...(touched.incidentType && errors.incidentType ? styles.inputError : {})
             }}
           >
             <option value="">Select an incident type</option>
@@ -113,11 +111,12 @@ export default function ReportForm() {
             <option value="Unusual Behavior or Event">Unusual Behavior or Event</option>
             <option value="Other">Other</option>
           </select>
-          {(touched.incidentType || hasSubmitted) && errors.incidentType && (
+          {touched.incidentType && errors.incidentType && (
             <p style={styles.error}>{errors.incidentType}</p>
           )}
         </label>
 
+        {/* SHIP NAME */}
         <label>
           Ship Name *
           <input
@@ -126,13 +125,17 @@ export default function ReportForm() {
             value={formData.shipName}
             onChange={handleChange}
             onBlur={handleBlur}
-            style={(touched.shipName || hasSubmitted) && errors.shipName ? styles.inputError : {}}
+            style={{
+              ...styles.input,
+              ...(touched.shipName && errors.shipName ? styles.inputError : {})
+            }}
           />
-          {(touched.shipName || hasSubmitted) && errors.shipName && (
+          {touched.shipName && errors.shipName && (
             <p style={styles.error}>{errors.shipName}</p>
           )}
         </label>
 
+        {/* LOCATION */}
         <label>
           Location *
           <input
@@ -141,13 +144,17 @@ export default function ReportForm() {
             value={formData.location}
             onChange={handleChange}
             onBlur={handleBlur}
-            style={(touched.location || hasSubmitted) && errors.location ? styles.inputError : {}}
+            style={{
+              ...styles.input,
+              ...(touched.location && errors.location ? styles.inputError : {})
+            }}
           />
-          {(touched.location || hasSubmitted) && errors.location && (
+          {touched.location && errors.location && (
             <p style={styles.error}>{errors.location}</p>
           )}
         </label>
 
+        {/* DATE */}
         <label>
           Date *
           <input
@@ -156,22 +163,28 @@ export default function ReportForm() {
             value={formData.date}
             onChange={handleChange}
             onBlur={handleBlur}
-            style={(touched.date || hasSubmitted) && errors.date ? styles.inputError : {}}
+            style={{
+              ...styles.input,
+              ...(touched.date && errors.date ? styles.inputError : {})
+            }}
           />
-          {(touched.date || hasSubmitted) && errors.date && (
+          {touched.date && errors.date && (
             <p style={styles.error}>{errors.date}</p>
           )}
         </label>
 
+        {/* NOTES */}
         <label>
           Additional Notes
           <textarea
             name="notes"
             value={formData.notes}
             onChange={handleChange}
+            style={styles.textarea}
           />
         </label>
 
+        {/* FILE */}
         <label>
           File Upload
           <input
@@ -179,18 +192,11 @@ export default function ReportForm() {
             name="file"
             accept=".pdf,.jpg,.png"
             onChange={handleChange}
+            style={styles.input}
           />
         </label>
 
-        <button
-          type="submit"
-          disabled={Object.keys(validate()).length > 0}
-          style={{
-            ...styles.button,
-            opacity: Object.keys(validate()).length > 0 ? 0.5 : 1,
-            cursor: Object.keys(validate()).length > 0 ? 'not-allowed' : 'pointer',
-          }}
-        >
+        <button type="submit" style={styles.button}>
           Submit Report
         </button>
       </form>
@@ -222,6 +228,21 @@ const styles = {
     fontFamily: 'Arial, sans-serif',
     color: '#222',
   },
+  input: {
+    padding: '0.6rem',
+    fontSize: '1rem',
+    borderRadius: '6px',
+    border: '1px solid #ccc',
+    width: '100%',
+  },
+  textarea: {
+    padding: '0.6rem',
+    fontSize: '1rem',
+    borderRadius: '6px',
+    border: '1px solid #ccc',
+    width: '100%',
+    minHeight: '80px',
+  },
   select: {
     padding: '0.6rem',
     fontSize: '1rem',
@@ -247,7 +268,9 @@ const styles = {
     backgroundColor: '#004080',
     color: '#fff',
     transition: 'background 0.3s ease',
+    cursor: 'pointer',
   },
 };
+
 
 
