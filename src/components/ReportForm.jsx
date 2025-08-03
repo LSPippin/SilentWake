@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import SuccessOverlay from './SuccessOverlay'; // optional if you’ve implemented it
+import SuccessOverlay from './SuccessOverlay'; // optional
 
 export default function ReportForm() {
   const navigate = useNavigate();
@@ -17,6 +17,7 @@ export default function ReportForm() {
   const [errors, setErrors] = useState({});
   const [touched, setTouched] = useState({});
   const [showOverlay, setShowOverlay] = useState(false);
+  const [hasSubmitted, setHasSubmitted] = useState(false); // 👈 new state
 
   const handleChange = (e) => {
     const { name, value, files } = e.target;
@@ -44,6 +45,8 @@ export default function ReportForm() {
 
   const handleSubmit = (e) => {
     e.preventDefault();
+    setHasSubmitted(true); // 👈 flag this has been submitted
+
     const validationErrors = validate();
     if (Object.keys(validationErrors).length > 0) {
       setErrors(validationErrors);
@@ -88,7 +91,7 @@ export default function ReportForm() {
             onBlur={handleBlur}
             style={{
               ...styles.select,
-              ...(touched.incidentType && errors.incidentType ? styles.inputError : {})
+              ...((touched.incidentType || hasSubmitted) && errors.incidentType ? styles.inputError : {})
             }}
           >
             <option value="">Select an incident type</option>
@@ -106,7 +109,7 @@ export default function ReportForm() {
             <option value="Unusual Behavior or Event">Unusual Behavior or Event</option>
             <option value="Other">Other</option>
           </select>
-          {touched.incidentType && errors.incidentType && (
+          {(touched.incidentType || hasSubmitted) && errors.incidentType && (
             <p style={styles.error}>{errors.incidentType}</p>
           )}
         </label>
@@ -119,9 +122,9 @@ export default function ReportForm() {
             value={formData.shipName}
             onChange={handleChange}
             onBlur={handleBlur}
-            style={touched.shipName && errors.shipName ? styles.inputError : {}}
+            style={(touched.shipName || hasSubmitted) && errors.shipName ? styles.inputError : {}}
           />
-          {touched.shipName && errors.shipName && (
+          {(touched.shipName || hasSubmitted) && errors.shipName && (
             <p style={styles.error}>{errors.shipName}</p>
           )}
         </label>
@@ -134,9 +137,9 @@ export default function ReportForm() {
             value={formData.location}
             onChange={handleChange}
             onBlur={handleBlur}
-            style={touched.location && errors.location ? styles.inputError : {}}
+            style={(touched.location || hasSubmitted) && errors.location ? styles.inputError : {}}
           />
-          {touched.location && errors.location && (
+          {(touched.location || hasSubmitted) && errors.location && (
             <p style={styles.error}>{errors.location}</p>
           )}
         </label>
@@ -149,9 +152,9 @@ export default function ReportForm() {
             value={formData.date}
             onChange={handleChange}
             onBlur={handleBlur}
-            style={touched.date && errors.date ? styles.inputError : {}}
+            style={(touched.date || hasSubmitted) && errors.date ? styles.inputError : {}}
           />
-          {touched.date && errors.date && (
+          {(touched.date || hasSubmitted) && errors.date && (
             <p style={styles.error}>{errors.date}</p>
           )}
         </label>
@@ -242,4 +245,5 @@ const styles = {
     transition: 'background 0.3s ease',
   },
 };
+
 
