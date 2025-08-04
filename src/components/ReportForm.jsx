@@ -69,7 +69,6 @@ export default function ReportForm() {
     };
 
     localStorage.setItem('reports', JSON.stringify([...existingData, newSubmission]));
-
     setShowOverlay(true);
 
     setTimeout(() => {
@@ -80,21 +79,18 @@ export default function ReportForm() {
 
   return (
     <>
-      <form onSubmit={handleSubmit} style={styles.form}>
+      <form onSubmit={handleSubmit} className="report-form">
         <h2>Submit Incident Report</h2>
 
         {/* INCIDENT TYPE */}
         <label>
-          Type of Incident *
+          Type of Incident <span className = "required">*</span>
           <select
             name="incidentType"
             value={formData.incidentType}
             onChange={handleChange}
             onBlur={handleBlur}
-            style={{
-              ...styles.select,
-              ...(touched.incidentType && errors.incidentType ? styles.inputError : {})
-            }}
+            className={touched.incidentType && errors.incidentType ? 'input-error' : ''}
           >
             <option value="">Select an incident type</option>
             <option value="Anonymous Tip or Observation">Anonymous Tip or Observation</option>
@@ -111,94 +107,82 @@ export default function ReportForm() {
             <option value="Unusual Behavior or Event">Unusual Behavior or Event</option>
             <option value="Other">Other</option>
           </select>
-          {touched.incidentType && errors.incidentType && (
-            <p style={styles.error}>{errors.incidentType}</p>
-          )}
+        {touched.incidentType && errors.incidentType && (
+          <p className="error-text">{errors.incidentType}</p>
+        )}
         </label>
 
         {/* SHIP NAME */}
         <label>
-          Ship Name *
+          Ship Name <span className="required">*</span>
           <input
             type="text"
             name="shipName"
             value={formData.shipName}
             onChange={handleChange}
             onBlur={handleBlur}
-            style={{
-              ...styles.input,
-              ...(touched.shipName && errors.shipName ? styles.inputError : {})
-            }}
+            className={touched.shipName && errors.shipName ? 'input-error' : ''}
           />
-          {touched.shipName && errors.shipName && (
-            <p style={styles.error}>{errors.shipName}</p>
-          )}
+        {touched.shipName && errors.shipName && (
+          <p className="error-text">{errors.shipName}</p>
+        )}
         </label>
 
         {/* LOCATION */}
         <label>
-          Location *
+          Location <span className="required">*</span>
           <input
             type="text"
             name="location"
             value={formData.location}
             onChange={handleChange}
             onBlur={handleBlur}
-            style={{
-              ...styles.input,
-              ...(touched.location && errors.location ? styles.inputError : {})
-            }}
-          />
-          {touched.location && errors.location && (
-            <p style={styles.error}>{errors.location}</p>
-          )}
-        </label>
+            className={touched.location && errors.location ? 'input-error' : ''}
+        />
+        {touched.location && errors.location && (
+          <p className="error-text">{errors.location}</p>
+        )}
+      </label>
 
         {/* DATE */}
-        <label>
-          Date *
-          <input
-            type="date"
-            name="date"
-            value={formData.date}
-            onChange={handleChange}
-            onBlur={handleBlur}
-            style={{
-              ...styles.input,
-              ...(touched.date && errors.date ? styles.inputError : {})
-            }}
-          />
-          {touched.date && errors.date && (
-            <p style={styles.error}>{errors.date}</p>
-          )}
-        </label>
+      <label>
+        Date <span className="required">*</span>
+        <input
+          type="date"
+          name="date"
+          value={formData.date}
+          onChange={handleChange}
+          onBlur={handleBlur}
+          className={touched.date && errors.date ? 'input-error' : ''}
+        />
+      {touched.date && errors.date && (
+        <p className="error-text">{errors.date}</p>
+      )}
+      </label>
 
         {/* NOTES */}
-        <label>
-          Additional Notes
+      <label>
+        Additional Notes
           <textarea
             name="notes"
             value={formData.notes}
             onChange={handleChange}
-            style={styles.textarea}
           />
-        </label>
+      </label>
 
         {/* FILE */}
-        <label>
-          File Upload
+      <label>
+        File Upload
           <input
             type="file"
             name="file"
             accept=".pdf,.jpg,.png"
             onChange={handleChange}
-            style={styles.input}
           />
-        </label>
-
-        <button type="submit" style={styles.button}>
-          Submit Report
-        </button>
+      </label>
+      <button type="submit" className="btn-primary">
+        Submit Report
+      </button>
       </form>
 
       {showOverlay && (
@@ -211,66 +195,5 @@ export default function ReportForm() {
         />
       )}
     </>
-  );
+  )
 }
-
-const styles = {
-  form: {
-    maxWidth: '600px',
-    margin: '2rem auto',
-    padding: '2rem',
-    backgroundColor: '#ffffff',
-    borderRadius: '12px',
-    boxShadow: '0 4px 12px rgba(0, 0, 0, 0.1)',
-    display: 'flex',
-    flexDirection: 'column',
-    gap: '1.5rem',
-    fontFamily: 'Arial, sans-serif',
-    color: '#222',
-  },
-  input: {
-    padding: '0.6rem',
-    fontSize: '1rem',
-    borderRadius: '6px',
-    border: '1px solid #ccc',
-    width: '100%',
-  },
-  textarea: {
-    padding: '0.6rem',
-    fontSize: '1rem',
-    borderRadius: '6px',
-    border: '1px solid #ccc',
-    width: '100%',
-    minHeight: '80px',
-  },
-  select: {
-    padding: '0.6rem',
-    fontSize: '1rem',
-    borderRadius: '6px',
-    border: '1px solid #ccc',
-    backgroundColor: '#fff',
-    width: '100%',
-  },
-  inputError: {
-    border: '2px solid #cc0000',
-    backgroundColor: '#fff0f0',
-  },
-  error: {
-    color: '#cc0000',
-    fontSize: '0.9rem',
-    marginTop: '0.3rem',
-  },
-  button: {
-    padding: '0.9rem',
-    fontSize: '1.1rem',
-    borderRadius: '6px',
-    border: 'none',
-    backgroundColor: '#004080',
-    color: '#fff',
-    transition: 'background 0.3s ease',
-    cursor: 'pointer',
-  },
-};
-
-
-
