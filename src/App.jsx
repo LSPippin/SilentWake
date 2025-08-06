@@ -14,6 +14,7 @@ import Forum from './pages/Forum';
 import Welcome from './pages/Welcome';
 import Home from './pages/Home';
 import Signup from './pages/Signup';
+import { About } from './pages/About';
 
 function App() {
   return (
@@ -26,6 +27,7 @@ function App() {
         <Route path="/Onboarding" element={<ProtectedRoute guestAllowed={true}><Onboarding /></ProtectedRoute>} />
         <Route path="/ChooseAccess" element={<ProtectedRoute guestAllowed={true}><ChooseAccess /></ProtectedRoute>} />
         <Route path="/InfoCenter" element={<ProtectedRoute guestAllowed={true}><InfoCenter /></ProtectedRoute>} />
+        <Route path="/about" element={<ProtectedRoute guestAllowed={true}><About /></ProtectedRoute>} />
         <Route path="/Signup" element={<ProtectedRoute guestAllowed={true}><Signup /></ProtectedRoute>} />
 
 
