@@ -544,34 +544,42 @@ h2 {
 }
 
 /* Info center buttons with spacing*/
+/* Container styles */
 .info-center-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
   padding: 2rem;
-  text-align: center;
 }
 
+/* Title */
 .info-title {
-  margin-bottom: 1.5rem;
   font-size: 2rem;
-  color: #f8f9fa;
+  font-weight: bold;
+  margin-bottom: 1.5rem;
 }
 
+/* Horizontal button layout */
 .info-button-row {
   display: flex;
   flex-wrap: wrap;
-  gap: 1rem;
   justify-content: center;
-  align-items: center;
+  gap: 1rem;
+  max-width: 1000px;
 }
 
+/* Individual buttons */
 .info-btn {
-  padding: 0.8rem 1.4rem;
   background-color: #4db8ff;
   color: #001f3f;
+  padding: 0.8rem 1.5rem;
+  font-size: 1rem;
+  font-weight: 600;
   border: none;
   border-radius: 8px;
-  font-size: 1rem;
-  min-width: 200px;
+  cursor: pointer;
   transition: background-color 0.2s ease, transform 0.1s ease;
+  white-space: nowrap;
 }
 
 .info-btn:hover {
