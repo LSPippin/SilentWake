@@ -1,6 +1,6 @@
 import React from 'react';
 import { useNavigate } from 'react-router-dom';
-import './InfoCenter.css';
+import './index.css';
 
 export default function InfoCenter() {
   const navigate = useNavigate();
