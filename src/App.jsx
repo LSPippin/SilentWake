@@ -15,6 +15,11 @@ import Welcome from './pages/Welcome';
 import Home from './pages/Home';
 import Signup from './pages/Signup';
 import { About } from './pages/About';
+import { FAQ } from './pages/FAQ';
+import { Legal } from './pages/Legal';
+import { Partners } from './pages/Partners';
+import { Impact } from './pages/Impact';
+
 
 function App() {
   return (
@@ -28,6 +33,10 @@ function App() {
         <Route path="/ChooseAccess" element={<ProtectedRoute guestAllowed={true}><ChooseAccess /></ProtectedRoute>} />
         <Route path="/InfoCenter" element={<ProtectedRoute guestAllowed={true}><InfoCenter /></ProtectedRoute>} />
         <Route path="/about" element={<ProtectedRoute guestAllowed={true}><About /></ProtectedRoute>} />
+        <Route path="/faq" element={<ProtectedRoute guestAllowed={true}><FAQ /></ProtectedRoute>} />
+        <Route path="/legal" element={<ProtectedRoute guestAllowed={true}><Legal /></ProtectedRoute>} />
+        <Route path="/partners" element={<ProtectedRoute guestAllowed={true}><Partners /></ProtectedRoute>} />
+        <Route path="/impact" element={<ProtectedRoute guestAllowed={true}><Impact /></ProtectedRoute>} />
         <Route path="/Signup" element={<ProtectedRoute guestAllowed={true}><Signup /></ProtectedRoute>} />
 
 

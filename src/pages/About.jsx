@@ -3,9 +3,7 @@ export function About() {
     <div className="static-page">
       <h1>About Silent Wake</h1>
       <p>
-        Silent Wake is a citizen-powered project focused on tracking and raising awareness about
-        incidents at sea. Our goal is to bring transparency and support to families, researchers,
-        and the public through collective reporting, information sharing, and community-driven action.
+        Silent Wake is a citizen science project devoted to tracking missing persons and unexplained events on cruise ships and at sea. Our goal is to bring visibility to these often-overlooked cases by collecting, organizing, and analyzing stories, data, and patterns that may otherwise go unnoticed. By turning attention to what happens beyond the shoreline, we hope to support affected families and push for greater transparency and accountability in the maritime industry.
       </p>
     </div>
   );

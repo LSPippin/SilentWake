@@ -9,7 +9,7 @@ export default function InfoCenter() {
       <h1 className="info-title">Info Center</h1>
       <div className="info-button-row">
         <button className="info-btn" onClick={() => navigate('/about')}>About Silent Wake</button>
-        <button className="info-btn" onClick={() => navigate('/data-impact')}>Data Impact Report</button>
+        <button className="info-btn" onClick={() => navigate('/impact')}>Data Impact Report</button>
         <button className="info-btn" onClick={() => navigate('/faq')}>FAQs</button>
         <button className="info-btn" onClick={() => navigate('/legal')}>Legal & Privacy Policy</button>
         <button className="info-btn" onClick={() => navigate('/partners')}>Partner Organizations</button>
