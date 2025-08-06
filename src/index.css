@@ -514,3 +514,31 @@ h2 {
   from { transform: scale(0.9); opacity: 0; }
   to { transform: scale(1); opacity: 1; }
 }
+
+/* Select Interest Buttons*/
+.interests-container {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+  margin-top: 0.5rem;
+}
+
+.interest-btn {
+  padding: 0.4rem 0.8rem;
+  font-size: 0.85rem;
+  border: 1px solid #0077cc;
+  border-radius: 20px;
+  background-color: white;
+  color: #0077cc;
+  transition: all 0.2s ease-in-out;
+}
+
+.interest-btn:hover {
+  background-color: #e6f2ff;
+}
+
+.interest-btn.selected {
+  background-color: #0077cc;
+  color: white;
+  font-weight: 500;
+}
