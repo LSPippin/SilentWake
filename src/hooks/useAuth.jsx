@@ -2,7 +2,6 @@ import { useNavigate } from 'react-router-dom';
 
 export default function useAuth() {
   const navigate = useNavigate();
-
   const userMode = localStorage.getItem('userMode') || '';
 
   const setUserMode = (mode) => {
@@ -11,7 +10,7 @@ export default function useAuth() {
 
   const logout = () => {
     localStorage.removeItem('userMode');
-    navigate('/SplashScreen');
+    navigate('/ChooseAccess');
   };
 
   return { userMode, setUserMode, logout };

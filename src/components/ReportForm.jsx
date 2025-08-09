@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import SuccessOverlay from './SuccessOverlay'; // optional overlay
+import SuccessOverlay from './SuccessOverlay';
 
 export default function ReportForm() {
   const navigate = useNavigate();
@@ -73,7 +73,7 @@ export default function ReportForm() {
 
     setTimeout(() => {
       setShowOverlay(false);
-      navigate('/dashboard');
+      navigate('/Dashboard');
     }, 3000);
   };
 

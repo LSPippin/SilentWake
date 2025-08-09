@@ -17,7 +17,7 @@ export function FAQ() {
       <p>Yes. You control what you share. Review our privacy policy for full details.</p>
 
       <div className="button-row">
-        <button className="btn-secondary" onClick={() => navigate('/infocenter')}>← Back to Info Center</button>
+        <button className="btn-secondary" onClick={() => navigate('/Infocenter')}>← Back to Info Center</button>
       </div>
     </div>
   );

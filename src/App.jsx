@@ -1,7 +1,8 @@
-// import other pages as needed
-
-import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
+import { BrowserRouter as Router, Routes, Route, Navigate, useLocation } from 'react-router-dom';
+import { useEffect } from 'react';
 import ProtectedRoute from './components/ProtectedRoute';
+import Navbar from './components/Navbar';
+import useAuth from './hooks/useAuth';
 
 import SplashScreen from './pages/SplashScreen';
 import Onboarding from './pages/Onboarding';
@@ -21,10 +22,31 @@ import { Partners } from './pages/Partners';
 import { Impact } from './pages/Impact';
 
 
-function App() {
+function AppContent() {
+  const location = useLocation();
+  const { userMode } = useAuth();
+  const isAuthenticated = userMode === 'user';
+
+  // Hide NavBar on specific pages
+  const hideNavbarOn = ['/SplashScreen'];
+  const shouldHideNavbar = hideNavbarOn.includes(location.pathname);
+
   return (
-    <Router>
+    <>
+      {/* Conditional Navbar */}
+      {!shouldHideNavbar && (
+        <Navbar
+          isAuthenticated={isAuthenticated}
+          onLogout={() => {
+            localStorage.removeItem('userMode');
+            window.location.href = '/ChooseAccess';
+          }}
+        />
+      )}
+
       <Routes>
+
+       <Route path="/" element={<Navigate to="/SplashScreen" replace />} />
 
         {/* Guest Accessible */}
         <Route path="/SplashScreen" element={<ProtectedRoute guestAllowed={true}><SplashScreen /></ProtectedRoute>} />
@@ -32,11 +54,11 @@ function App() {
         <Route path="/Onboarding" element={<ProtectedRoute guestAllowed={true}><Onboarding /></ProtectedRoute>} />
         <Route path="/ChooseAccess" element={<ProtectedRoute guestAllowed={true}><ChooseAccess /></ProtectedRoute>} />
         <Route path="/InfoCenter" element={<ProtectedRoute guestAllowed={true}><InfoCenter /></ProtectedRoute>} />
-        <Route path="/about" element={<ProtectedRoute guestAllowed={true}><About /></ProtectedRoute>} />
-        <Route path="/faq" element={<ProtectedRoute guestAllowed={true}><FAQ /></ProtectedRoute>} />
-        <Route path="/legal" element={<ProtectedRoute guestAllowed={true}><Legal /></ProtectedRoute>} />
-        <Route path="/partners" element={<ProtectedRoute guestAllowed={true}><Partners /></ProtectedRoute>} />
-        <Route path="/impact" element={<ProtectedRoute guestAllowed={true}><Impact /></ProtectedRoute>} />
+        <Route path="/About" element={<ProtectedRoute guestAllowed={true}><About /></ProtectedRoute>} />
+        <Route path="/Faq" element={<ProtectedRoute guestAllowed={true}><FAQ /></ProtectedRoute>} />
+        <Route path="/Legal" element={<ProtectedRoute guestAllowed={true}><Legal /></ProtectedRoute>} />
+        <Route path="/Partners" element={<ProtectedRoute guestAllowed={true}><Partners /></ProtectedRoute>} />
+        <Route path="/Impact" element={<ProtectedRoute guestAllowed={true}><Impact /></ProtectedRoute>} />
         <Route path="/Signup" element={<ProtectedRoute guestAllowed={true}><Signup /></ProtectedRoute>} />
 
 
@@ -48,8 +70,14 @@ function App() {
         <Route path="/ExploreCases" element={<ProtectedRoute><ExploreCases /></ProtectedRoute>} />
         <Route path="/Forum" element={<ProtectedRoute><Forum /></ProtectedRoute>} />
       </Routes>
-    </Router>
+  </>
   );
 }
 
-export default App;
+export default function App() {
+  return (
+    <Router>
+      <AppContent />
+    </Router>
+  );
+}

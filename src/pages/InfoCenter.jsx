@@ -8,11 +8,11 @@ export default function InfoCenter() {
     <div className="info-center-container">
       <h1 className="info-title">Info Center</h1>
       <div className="info-button-row">
-        <button className="info-btn" onClick={() => navigate('/about')}>About Silent Wake</button>
-        <button className="info-btn" onClick={() => navigate('/impact')}>Data Impact Report</button>
-        <button className="info-btn" onClick={() => navigate('/faq')}>FAQs</button>
-        <button className="info-btn" onClick={() => navigate('/legal')}>Legal & Privacy Policy</button>
-        <button className="info-btn" onClick={() => navigate('/partners')}>Partner Organizations</button>
+        <button className="info-btn" onClick={() => navigate('/About')}>About Silent Wake</button>
+        <button className="info-btn" onClick={() => navigate('/Impact')}>Data Impact Report</button>
+        <button className="info-btn" onClick={() => navigate('/FAQ')}>FAQs</button>
+        <button className="info-btn" onClick={() => navigate('/Legal')}>Legal & Privacy Policy</button>
+        <button className="info-btn" onClick={() => navigate('/Partners')}>Partner Organizations</button>
       </div>
     </div>
   );
