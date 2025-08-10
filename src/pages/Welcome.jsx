@@ -14,7 +14,7 @@ export default function Welcome() {
       navigate('/Login');
     } else if (mode === 'new') {
       setUserMode('new');
-      navigate('/Signup');
+      navigate('/CreateAccount');
     }
   };
 
@@ -35,6 +35,33 @@ export default function Welcome() {
       </div>
 
       <img src={LogoImage} alt="Silent Wake Logo" className="welcome-logo" />
+
+      {/* ✅ DEV MODE BUTTONS */}
+      {process.env.NODE_ENV === 'development' && (
+        <div className="dev-access">
+          <p style={{ color: 'white', fontSize: '0.85rem', marginBottom: '0.25rem' }}>
+            🚧 Dev Mode:
+          </p>
+          <button className="access-btn" onClick={() => {
+            localStorage.setItem('userMode', 'user');
+            window.location.href = '/Dashboard';
+          }}>
+            Login as User
+          </button>
+          <button className="access-btn" onClick={() => {
+            localStorage.setItem('userMode', 'guest');
+            window.location.href = '/ExploreCases';
+          }}>
+            Continue as Guest
+          </button>
+          <button className="access-btn" onClick={() => {
+            localStorage.removeItem('userMode');
+            window.location.href = '/Welcome';
+          }}>
+            Reset Session
+          </button>
+        </div>
+      )}
     </div>
   );
 }

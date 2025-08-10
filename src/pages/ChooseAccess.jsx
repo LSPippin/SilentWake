@@ -13,7 +13,7 @@ export default function ChooseAccess() {
     } else if (mode === 'user') {
       navigate('/Login');
     } else if (mode === 'new') {
-      navigate('/Signup');
+      navigate('/CreateAccount');
     }
   };
 

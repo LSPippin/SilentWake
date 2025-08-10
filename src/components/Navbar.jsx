@@ -33,12 +33,12 @@ export default function NavBar() {
     { to: "/InfoCenter", label: "Info Center" },
     { to: "/Forum", label: "Community Forum" },
     { to: "/Login", label: "Log In" },
-    { to: "/Signup", label: "Create Account" },
+    { to: "/CreateAccount", label: "Create Account" },
   ];
 
   const authedLinks = [
     { to: "/Dashboard", label: "Dashboard" },
-    { to: "/SubmitReport", label: "Submit a Report" },
+    { to: "/SubmitReport", label: "Submit Report" },
     { to: "/ExploreCases", label: "Explore Cases" },
     { to: "/InfoCenter", label: "Info Center" },
     { to: "/Forum", label: "Community Forum" },

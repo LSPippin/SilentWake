@@ -14,7 +14,8 @@ import InfoCenter from './pages/InfoCenter';
 import Forum from './pages/Forum';
 import Welcome from './pages/Welcome';
 import Home from './pages/Home';
-import Signup from './pages/Signup';
+import CreateAccount from './pages/CreateAccount';
+import CaseDetails from './pages/CaseDetails';
 import { About } from './pages/About';
 import { FAQ } from './pages/FAQ';
 import { Legal } from './pages/Legal';
@@ -59,7 +60,7 @@ function AppContent() {
         <Route path="/Legal" element={<ProtectedRoute guestAllowed={true}><Legal /></ProtectedRoute>} />
         <Route path="/Partners" element={<ProtectedRoute guestAllowed={true}><Partners /></ProtectedRoute>} />
         <Route path="/Impact" element={<ProtectedRoute guestAllowed={true}><Impact /></ProtectedRoute>} />
-        <Route path="/Signup" element={<ProtectedRoute guestAllowed={true}><Signup /></ProtectedRoute>} />
+        <Route path="/CreateAccount" element={<ProtectedRoute guestAllowed={true}><CreateAccount /></ProtectedRoute>} />
 
 
 
@@ -69,6 +70,7 @@ function AppContent() {
         <Route path="/SubmitReport" element={<ProtectedRoute><SubmitReport /></ProtectedRoute>} />
         <Route path="/ExploreCases" element={<ProtectedRoute><ExploreCases /></ProtectedRoute>} />
         <Route path="/Forum" element={<ProtectedRoute><Forum /></ProtectedRoute>} />
+        <Route path="/Cases/:id" element={<ProtectedRoute><CaseDetails /></ProtectedRoute>} />
       </Routes>
   </>
   );

@@ -100,7 +100,8 @@ export default function ExploreCases() {
 
   return (
     <div className="container">
-      <h1 className="home-title">Explore Cases</h1>
+      <h1 className="home-title" style={{ textAlign: 'center' }}>Explore Cases</h1>
+
 
       {/* Filters */}
       <div className="filters-row card">

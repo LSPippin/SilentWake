@@ -1,38 +1,34 @@
 import { useEffect } from 'react';
+import { useNavigate } from 'react-router-dom';
 import useAuth from '../hooks/useAuth';
+import LogoImage from '../components/LogoImage.svg';
 
-export default function ProtectedRoute({ children, guestAllowed = false }) {
+
+export default function SplashScreen() {
+  const navigate = useNavigate();
   const { userMode } = useAuth();
-  const accessAllowed = guestAllowed || userMode === 'user';
+
+  console.log("SplashScreen loaded");
+  console.log("userMode is:", userMode);
 
   useEffect(() => {
-    const root = document.getElementById('root');
-    if (!root) return;
-    if (!accessAllowed) root.classList.add('blurred-background');
-    else root.classList.remove('blurred-background');
+    const timer = setTimeout(() => {
+      console.log("Redirecting from SplashScreen...");
+      if (userMode === 'user') {
+        navigate('/Dashboard');
+      } else {
+        navigate('/Welcome');
+      }
+    }, 3000);
 
-    return () => root.classList.remove('blurred-background');
-  }, [accessAllowed]);
+    return () => clearTimeout(timer);
+  }, [navigate, userMode]);
 
-  if (!accessAllowed) {
-    return (
-      <div className="access-popup">
-        <div className="popup-content">
-          <h2>🔒 Access Restricted</h2>
-          <p>You must log in or create an account to view this page.</p>
-
-          <div className="popup-buttons">
-            <button className="btn-secondary" onClick={() => (window.location.href = '/Login')}>
-              Log In
-            </button>
-            <button className="btn-primary" onClick={() => (window.location.href = '/Signup')}>
-              Create Account
-            </button>
-          </div>
-        </div>
-      </div>
-    );
-  }
-
-  return children;
+  return (
+    <div className="splash-screen">
+      <img src={LogoImage} alt="Silent Wake Logo" className="splash-logo" />
+      <h1 className="splash-title">Silent Wake</h1>
+      <p className="splash-subtitle">Tracking the silence. Empowering awareness.</p>
+    </div>
+  );
 }

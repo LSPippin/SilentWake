@@ -48,7 +48,6 @@ export default function ReportForm() {
     const validationErrors = validate();
     setErrors(validationErrors);
 
-    // Mark all fields as touched so errors display
     setTouched({
       incidentType: true,
       shipName: true,
@@ -60,7 +59,6 @@ export default function ReportForm() {
       return;
     }
 
-    // Submit the data
     const existingData = JSON.parse(localStorage.getItem('reports')) || [];
     const newSubmission = {
       ...formData,
@@ -80,11 +78,12 @@ export default function ReportForm() {
   return (
     <>
       <form onSubmit={handleSubmit} className="report-form">
-        <h2>Submit Incident Report</h2>
+        <h2>Incident Report</h2>
 
-        {/* INCIDENT TYPE */}
         <label>
-          Type of Incident <span className = "required">*</span>
+          <span className="label-text">
+            Type of Incident <span className="required">*</span>
+          </span>
           <select
             name="incidentType"
             value={formData.incidentType}
@@ -107,82 +106,87 @@ export default function ReportForm() {
             <option value="Unusual Behavior or Event">Unusual Behavior or Event</option>
             <option value="Other">Other</option>
           </select>
-        {touched.incidentType && errors.incidentType && (
-          <p className="error-text">{errors.incidentType}</p>
-        )}
+          {touched.incidentType && errors.incidentType && (
+            <p className="error-text">{errors.incidentType}</p>
+          )}
         </label>
 
-        {/* SHIP NAME */}
         <label>
-          Ship Name <span className="required">*</span>
+          <span className="label-text">
+            Ship Name <span className="required">*</span>
+          </span>
           <input
             type="text"
             name="shipName"
+            placeholder="Enter the ship name"
             value={formData.shipName}
             onChange={handleChange}
             onBlur={handleBlur}
             className={touched.shipName && errors.shipName ? 'input-error' : ''}
           />
-        {touched.shipName && errors.shipName && (
-          <p className="error-text">{errors.shipName}</p>
-        )}
+          {touched.shipName && errors.shipName && (
+            <p className="error-text">{errors.shipName}</p>
+          )}
         </label>
 
-        {/* LOCATION */}
         <label>
-          Location <span className="required">*</span>
+          <span className="label-text">
+            Location <span className="required">*</span>
+          </span>
           <input
             type="text"
             name="location"
+            placeholder="Enter the incident location"
             value={formData.location}
             onChange={handleChange}
             onBlur={handleBlur}
             className={touched.location && errors.location ? 'input-error' : ''}
-        />
-        {touched.location && errors.location && (
-          <p className="error-text">{errors.location}</p>
-        )}
-      </label>
+          />
+          {touched.location && errors.location && (
+            <p className="error-text">{errors.location}</p>
+          )}
+        </label>
 
-        {/* DATE */}
-      <label>
-        Date <span className="required">*</span>
-        <input
-          type="date"
-          name="date"
-          value={formData.date}
-          onChange={handleChange}
-          onBlur={handleBlur}
-          className={touched.date && errors.date ? 'input-error' : ''}
-        />
-      {touched.date && errors.date && (
-        <p className="error-text">{errors.date}</p>
-      )}
-      </label>
+        <label>
+          <span className="label-text">
+            Date <span className="required">*</span>
+          </span>
+          <input
+            type="date"
+            name="date"
+            value={formData.date}
+            onChange={handleChange}
+            onBlur={handleBlur}
+            className={touched.date && errors.date ? 'input-error' : ''}
+          />
+          {touched.date && errors.date && (
+            <p className="error-text">{errors.date}</p>
+          )}
+        </label>
 
-        {/* NOTES */}
-      <label>
-        Additional Notes
+        <label>
+          <span className="label-text">Additional Notes</span>
           <textarea
             name="notes"
+            placeholder="Enter any additional information"
             value={formData.notes}
             onChange={handleChange}
           />
-      </label>
+        </label>
 
-        {/* FILE */}
-      <label>
-        File Upload
+        <label>
+          <span className="label-text">File Upload</span>
           <input
             type="file"
             name="file"
             accept=".pdf,.jpg,.png"
             onChange={handleChange}
           />
-      </label>
-      <button type="submit" className="btn-primary">
-        Submit Report
-      </button>
+        </label>
+
+        <button type="submit" className="btn-primary">
+          Submit Report
+        </button>
       </form>
 
       {showOverlay && (
@@ -190,10 +194,10 @@ export default function ReportForm() {
           badgeText="🛟 Maritime Reporter Badge Earned"
           onClose={() => {
             setShowOverlay(false);
-            navigate('/dashboard');
+            navigate('/Dashboard');
           }}
         />
       )}
     </>
-  )
+  );
 }
