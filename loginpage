@@ -1,0 +1,68 @@
+import { useNavigate } from 'react-router-dom';
+import LogoImage from '../components/LogoImage.svg';
+import React from 'react';  
+export default function ChooseAccess() {
+  const navigate = useNavigate();
+  const [email, setEmail] = React.useState("");
+  const [password, setPassword] = React.useState("");
+  const [error, setError] = React.useState("");
+
+  // Handle form submission
+  // function will be called when the user submits the login form
+  function handleSubmit(entry) {
+    entry.preventDefault();
+    // Example validation
+    if (!email || !password) {
+      setError("Please enter both email and password.");
+      return;
+    }
+    // TODO: Add authentication logic here
+    setError("");
+
+
+    // Simulate successful login
+    // On success, navigate to dashboard
+    navigate("/Dashboard");
+  }
+// Create  login form
+  return (
+    <div className="full-screen-center container fade-in">
+      <h1>Sign In</h1>
+      
+      // Create input fields for email and password
+      <form className="signin-form" onSubmit={handleSubmit}>
+        <div>
+          <label htmlFor="email">Email:</label>
+          <input
+            type="email"
+            id="email"
+            value={email}
+            onChange={entry => setEmail(entry.target.value)}
+            required
+          />
+        </div>
+        <div>
+          <label htmlFor="password">Password:</label>
+          <input
+            type="password"
+            id="password"
+            value={password}
+            onChange={entry => setPassword(entry.target.value)}
+            required
+          />
+        </div>
+        
+        // Display error message
+        {error && <div className="error-message">{error}</div>}
+
+        // Create buttons for sign in and create account
+        <button className="access-btn" type="submit">Sign In</button>
+        <button className="access-btn" type="button" onClick={() => navigate("/Onboarding")}>Create Account</button>
+      </form>
+      // Display logo
+      <img src={LogoImage} alt="Silent Wake Logo" className="welcome-logo" />
+    </div>
+
+  
+  );
+}
