@@ -21,6 +21,7 @@ import { FAQ } from './pages/FAQ';
 import { Legal } from './pages/Legal';
 import { Partners } from './pages/Partners';
 import { Impact } from './pages/Impact';
+import NotFound from './pages/NotFound';
 
 
 function AppContent() {
@@ -71,6 +72,8 @@ function AppContent() {
         <Route path="/ExploreCases" element={<ProtectedRoute><ExploreCases /></ProtectedRoute>} />
         <Route path="/Forum" element={<ProtectedRoute><Forum /></ProtectedRoute>} />
         <Route path="/Cases/:id" element={<ProtectedRoute><CaseDetails /></ProtectedRoute>} />
+
+        <Route path="*" element={<NotFound />} />
       </Routes>
   </>
   );
