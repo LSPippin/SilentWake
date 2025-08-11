@@ -21,6 +21,8 @@ import { FAQ } from './pages/FAQ';
 import { Legal } from './pages/Legal';
 import { Partners } from './pages/Partners';
 import { Impact } from './pages/Impact';
+import Profile from './pages/Profile';
+
 import NotFound from './pages/NotFound';
 
 
@@ -62,7 +64,9 @@ function AppContent() {
         <Route path="/Partners" element={<ProtectedRoute guestAllowed={true}><Partners /></ProtectedRoute>} />
         <Route path="/Impact" element={<ProtectedRoute guestAllowed={true}><Impact /></ProtectedRoute>} />
         <Route path="/CreateAccount" element={<ProtectedRoute guestAllowed={true}><CreateAccount /></ProtectedRoute>} />
-
+        <Route path="/profile" element={<ProtectedRoute><Profile /></ProtectedRoute>} />
+        <Route path="*" element={<NotFound />} />
+        
 
 
       {/* User Only Access (default) */}
@@ -72,6 +76,7 @@ function AppContent() {
         <Route path="/ExploreCases" element={<ProtectedRoute><ExploreCases /></ProtectedRoute>} />
         <Route path="/Forum" element={<ProtectedRoute><Forum /></ProtectedRoute>} />
         <Route path="/Cases/:id" element={<ProtectedRoute><CaseDetails /></ProtectedRoute>} />
+        <Route path="/profile" element={<ProtectedRoute><Profile /></ProtectedRoute>} />
 
         <Route path="*" element={<NotFound />} />
       </Routes>
